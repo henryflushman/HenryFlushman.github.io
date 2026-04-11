@@ -54,7 +54,7 @@ body {
   }
 }
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, serif;
   text-align: center;
   /* keep top/side padding but remove bottom padding so footer can sit flush */
   padding: 5rem 2rem 0;
