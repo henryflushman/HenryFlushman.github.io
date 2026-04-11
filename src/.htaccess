@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Don’t touch subdomains (only match root and www)
+RewriteCond %{HTTP_HOST} ^(www\.)?alexandre-allonas\.fr$ [NC]
+
+# Force HTTPS and www
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^alexandre-allonas\.fr$ [NC]
+RewriteRule ^(.*)$ https://www.alexandre-allonas.fr/$1 [L,R=301]
