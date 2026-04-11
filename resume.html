@@ -48,8 +48,6 @@
       <div class="lang-select" style="display:flex; gap:0.5rem; align-items:center;">
         <span style="font-weight:600;">Language:</span>
         <button class="lang-btn button" data-lang="en">English</button>
-        <button class="lang-btn button" data-lang="fr">Français</button>
-        <button class="lang-btn button" data-lang="de">Deutsch</button>
       </div>
       <div style="margin-left:auto;">
         <a id="downloadLink" href="assets/resumes/resume-en.pdf" download="Alexandre-Allonas-Resume-en.pdf" class="button">Download PDF</a>
@@ -73,9 +71,7 @@
       const openLink = document.getElementById('openLink');
       const fallbackDownload = document.getElementById('fallbackDownload');
       const filenames = {
-        en: 'assets/resumes/resume-en.pdf',
-        fr: 'assets/resumes/resume-fr.pdf',
-        de: 'assets/resumes/resume-de.pdf'
+        en: 'assets/resumes/resume-en.pdf'
       };
 
       function setLang(lang) {
