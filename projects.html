@@ -7,9 +7,10 @@
   <link rel="stylesheet" href="./style.css">
 
   <script>
-    window.CESIUM_BASE_URL = "./assets/Cesium";
+    window.CESIUM_BASE_URL = "./Cesium";
   </script>
-  <script src="./assets/Cesium/Cesium.js"></script>
+  <script src="./Cesium/Cesium.js"></script>
+  <link rel="stylesheet" href="./Cesium/Widgets/widgets.css">
 
   <style>
     .project-webapp-shell {
@@ -237,7 +238,7 @@
     </header>
 
     <figure class="project-media">
-      <img src="assets/pictures/portfolio.png" alt="Orbital mechanics project placeholder image" itemprop="image">
+      <img src="./assets/pictures/portfolio.png" alt="Orbital mechanics project placeholder image" itemprop="image">
       <figcaption>Mission design workflow and analysis pipeline.</figcaption>
     </figure>
 
@@ -291,7 +292,7 @@
     </header>
 
     <figure class="project-media">
-      <img src="assets/pictures/portfolio.png" alt="Mission control software placeholder image" itemprop="image">
+      <img src="./assets/pictures/portfolio.png" alt="Mission control software placeholder image" itemprop="image">
       <figcaption>Mission operations and data-processing workflow.</figcaption>
     </figure>
 
@@ -346,7 +347,7 @@
     </header>
 
     <figure class="project-media">
-      <img src="assets/pictures/portfolio.png" alt="Portfolio website screenshot" itemprop="image">
+      <img src="./assets/pictures/portfolio.png" alt="Portfolio website screenshot" itemprop="image">
       <figcaption>Current version of the portfolio website.</figcaption>
     </figure>
 
@@ -432,7 +433,6 @@
     const marsStatus = document.getElementById('marsStatus');
 
     let marsViewer = null;
-    let marsIcrfAdded = false;
 
     function setMarsStatus(message) {
       marsStatus.textContent = message;
@@ -494,6 +494,9 @@
 
       Cesium.Ellipsoid.default = marsEllipsoid;
       viewer.scene.screenSpaceCameraController.minimumZoomDistance = 0.01;
+      viewer.scene.globe.enableLighting = true;
+      viewer.scene.sun.show = true;
+      viewer.scene.light = new Cesium.SunLight();
 
       const marsImagery = new Cesium.UrlTemplateImageryProvider({
         url: 'https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0/default/default028mm/{z}/{y}/{x}.jpg',
@@ -504,9 +507,6 @@
 
       viewer.scene.globe.imageryLayers.addImageryProvider(marsImagery);
       viewer.scene.globe.show = true;
-      viewer.scene.globe.enableLighting = true;
-      viewer.scene.sun.show = true;
-      viewer.scene.light = new Cesium.SunLight();
 
       viewer.camera.setView({
         destination: Cesium.Cartesian3.fromDegrees(0, 0, 10000000)
@@ -515,35 +515,17 @@
       return viewer;
     }
 
-    function setMarsRotationMode(selected) {
+    marsRotationMode.addEventListener('change', () => {
       if (!marsViewer) return;
-
-      if (selected === 'icrf') {
-        marsRotationMode.value = 'fixed';
-        return;
-      }
-
-      if (marsIcrfAdded) {
-        marsViewer.scene.postUpdate.removeEventListener(marsIcrfTransform);
-        marsIcrfAdded = false;
-      }
-
+      marsRotationMode.value = 'fixed';
       marsViewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
       marsViewer.camera.flyHome(0);
-    }
-
-    function marsIcrfTransform(scene, time) {
-      return;
-    }
-
-    marsRotationMode.addEventListener('change', (event) => {
-      setMarsRotationMode(event.target.value);
     });
 
     async function loadMarsSceneDataSource() {
       const sceneName = 'mars_orbit';
       const tagFilter = ['satellite'];
-      const sceneCzmlUrl = './assets/Cesium/Constellations/' + sceneName + '.czml';
+      const sceneCzmlUrl = './Cesium/Constellations/' + sceneName + '.czml';
 
       setMarsStatus('Loading scene data...');
 
@@ -568,6 +550,12 @@
     }
 
     async function launchMarsApp() {
+      if (typeof Cesium === 'undefined') {
+        setMarsStatus('Cesium failed to load. Check script paths.');
+        console.error('Cesium is undefined. Expected ./Cesium/Cesium.js to load.');
+        return;
+      }
+
       if (marsViewer) {
         marsViewerContainer.classList.add('active');
         marsToolbar.classList.add('active');
