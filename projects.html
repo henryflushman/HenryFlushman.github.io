@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css">
 
   <script>
-    window.CESIUM_BASE_URL = "assets/Cesium";
+    window.CESIUM_BASE_URL = "./assets/Cesium";
   </script>
-  <script src="assets/Cesium/Cesium.js"></script>
+  <script src="./assets/Cesium/Cesium.js"></script>
 
   <style>
     .project-webapp-shell {
@@ -543,7 +543,7 @@
     async function loadMarsSceneDataSource() {
       const sceneName = 'mars_orbit';
       const tagFilter = ['satellite'];
-      const sceneCzmlUrl = 'data/cesium/Constellations/' + sceneName + '.czml';
+      const sceneCzmlUrl = './assets/Cesium/Constellations/' + sceneName + '.czml';
 
       setMarsStatus('Loading scene data...');
 
