@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Cesium CZML Viewer (No Ion)</title>
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.112/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.112/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+  <style>
+    html, body, #cesiumContainer {
+      width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script>
+    // Disable Cesium Ion completely
+    Cesium.Ion.defaultAccessToken = '';
+
+    const viewer = new Cesium.Viewer('cesiumContainer', {
+      imageryProvider: false, // No base map
+      baseLayerPicker: false,
+      timeline: true,
+      animation: true
+    });
+
+    Cesium.CzmlDataSource.load('simple.czml').then(function(ds) {
+      // If the properties says Space, add it to the space sources
+      const SpaceSources = viewer.dataSources.add(ds);
+      viewer.zoomTo(ds);
+    });
+
+    viewer.scene.globe.depthTestAgainstTerrain = true;
+  </script>
+</body>
+</html>

@@ -5,6 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects</title>
   <link rel="stylesheet" href="style.css">
+
+  <script>
+    window.CESIUM_BASE_URL = "assets/cesium";
+  </script>
+  <script src="assets/cesium/Cesium.js"></script>
+
+  <style>
+    .project-webapp-shell {
+      margin-top: 1rem;
+      background: #0f172a;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    #marsViewerContainer {
+      width: 100%;
+      height: 72vh;
+      min-height: 520px;
+      display: none;
+    }
+
+    #marsViewerContainer.active {
+      display: block;
+    }
+
+    .webapp-toolbar {
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 1rem;
+      background: #111827;
+      color: #e5e7eb;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+    }
+
+    .webapp-toolbar.active {
+      display: flex;
+    }
+
+    .webapp-toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .webapp-toolbar label {
+      font-weight: 700;
+    }
+
+    .webapp-toolbar select,
+    .webapp-toolbar button {
+      font: inherit;
+    }
+
+    .webapp-toolbar select {
+      padding: 0.45rem 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #fff;
+      color: #111827;
+    }
+
+    .webapp-status {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+    }
+
+    .webapp-controls {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    @media (max-width: 700px) {
+      #marsViewerContainer {
+        height: 56vh;
+        min-height: 380px;
+      }
+
+      .webapp-toolbar {
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 <body>
   <nav>
@@ -16,121 +106,56 @@
     <ul class="nav-tabs" id="navTabs">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Projects</a></li>
+      <li><a href="projects.html" aria-current="page">Projects</a></li>
       <li><a href="education.html">Education</a></li>
       <li><a href="experience.html">Experience</a></li>
       <li><a href="resume.html">Resume</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
+
   <script>
     const navToggle = document.getElementById('navToggle');
     const navTabs = document.getElementById('navTabs');
+
     navToggle.addEventListener('click', () => {
       navTabs.classList.toggle('open');
       if (window.innerWidth <= 700) {
         document.body.classList.toggle('menu-open', navTabs.classList.contains('open'));
       }
     });
+
     navToggle.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         navTabs.classList.toggle('open');
+        if (window.innerWidth <= 700) {
+          document.body.classList.toggle('menu-open', navTabs.classList.contains('open'));
+        }
       }
     });
+
     navTabs.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        if (window.innerWidth <= 700) navTabs.classList.remove('open');
+        if (window.innerWidth <= 700) {
+          navTabs.classList.remove('open');
+          document.body.classList.remove('menu-open');
+        }
       });
     });
   </script>
 
-  <article class="project" role="article" aria-labelledby="project-title-portfolio-site" data-project-id="portfolio-site" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="project" role="article" aria-labelledby="project-title-mars-viewer" data-project-id="mars-viewer" itemscope itemtype="https://schema.org/CreativeWork">
     <header class="project-header">
-      <h2 id="project-title-portfolio-site" class="project-title" itemprop="name">VTOL Drone</h2>
+      <h2 id="project-title-mars-viewer" class="project-title" itemprop="name">Mars Orbiter Visualizer</h2>
       <p class="project-meta">
-        <time class="project-date" datetime="2025-10-15" itemprop="datePublished">Jan 2024 - Feb 2026</time>
-        <span class="project-role" itemprop="author">• Designer</span>
-        <span class="project-tags">• <span itemprop="keywords">Drone, Mechanical</span></span>
-      </p>
-      <p class="project-summary" itemprop="description">
-        Prototype Vertical Take-Off and Landing capable drone.
-      </p>
-    </header>
-
-    <figure class="project-media">
-      <img src="assets/pictures/VTOL_CAD.png" alt="CAD Render of the VTOL drone" itemprop="image" />
-      <figcaption>VTOL Drone CAD Assembly</figcaption>
-    </figure>
-
-    <section class="project-details">
-      <h3 class="sr-only">Project details</h3>
-
-      <div class="project-overview">
-        <h4>Overview</h4>
-        <p>
-          Design and production of a VTOL drone that switches between quadcopter and fixed-wing modes. 
-          Take-off and landing are handled vertically to broaden their location possibilities, 
-          once airborne it transitions to plane mode for a more efficient cruise, higher speeds and extended range.
-          The first test flight is scheduled for december 2025.
-        </p>
-      </div>
-
-      <div class="project-features">
-        <h4>Key features / highlights</h4>
-        <ul>
-          <li>3m Wingspan</li>
-          <li>500g Payload</li>
-          <li>4.1kg total weight</li>
-        </ul>
-      </div>
-
-      <div class="project-tech">
-        <h4>Tech & tools</h4>
-        <ul class="tech-list" aria-label="Technologies used">
-          <li>PTC Creo</li>
-          <li>3D Printing</li>
-          <li>Carbon fiber</li>
-          <li>Pixhawk</li>
-          <li>Composite Design</li>
-        </ul>
-      </div>
-
-      <div class="project-role">
-        <h4>My role</h4>
-        <p>
-            Over the course of two years, I contributed to the design and development of the tail, nacelles, fuselage, assembly tools and much more for the VTOL drone.
-
-        </p>
-      </div>
-<!--
-      <div class="project-links" aria-label="Project links">
-        <a class="btn btn-primary" href="index.html">Live demo (local)</a>
-        <a class="btn" href="https://github.com/aallonas/portfolio" target="_blank" rel="noopener noreferrer">Source (GitHub)</a>
-        <a class="btn" href="assets/resumes/resume-en.pdf" target="_blank" rel="noopener noreferrer">Resume (PDF)</a>
-      </div>-->
-    </section>
-    <footer class="project-footer" aria-hidden="false">
-      <p class="project-stats">Duration: 2 years • Team: 10 • Status: Active</p>
-    </footer>
-  </article>
-
-  <article class="project" role="article" aria-labelledby="project-title-portfolio-site" data-project-id="portfolio-site" itemscope itemtype="https://schema.org/CreativeWork">
-    <header class="project-header">
-      <h2 id="project-title-portfolio-site" class="project-title" itemprop="name">Tic-tac-toe Robot Opponent</h2>
-      <p class="project-meta">
-        <time class="project-date" datetime="2025-10-15" itemprop="datePublished">Fall Semester 2025</time>
+        <time class="project-date" datetime="2026-04-11" itemprop="datePublished">2026</time>
         <span class="project-role" itemprop="author">• Developer</span>
-        <span class="project-tags">• <span itemprop="keywords">Robotics, ROS2, Computer Vision</span></span>
+        <span class="project-tags">• <span itemprop="keywords">Python, CesiumJS, CZML, Orbital Mechanics</span></span>
       </p>
       <p class="project-summary" itemprop="description">
-        Tic tac toe Robot using an OpenMANIPULATOR-X robot arm as part of the "Motorisation et commande d'axe pour la robotique" course @ INSA Strasbourg. 
+        Interactive Mars mission viewer embedded directly into this portfolio. The scene is generated from Python-based orbital modeling and rendered in-browser using Cesium.
       </p>
     </header>
-
-    <figure class="project-media">
-      <img src="assets/pictures/OpenManipulator-X_CAD.png" alt=" screenshot of the portfolio website code editor" itemprop="image" />
-      <figcaption>OpenMANIPULATOR-X CAD assembly</figcaption>
-    </figure>
 
     <section class="project-details">
       <h3 class="sr-only">Project details</h3>
@@ -138,95 +163,58 @@
       <div class="project-overview">
         <h4>Overview</h4>
         <p>
-          Created a ROS2 package enabling players to physically play Tic-Tac-Toe against an AI, whose moves are detected and executed by an OpenMANIPULATOR-X robot arm equipped with a camera.</p>
+          This webapp visualizes a Mars orbiter trajectory using a CZML scene generated from my Python workflow. The goal was to bring the same Cesium-based mission visualization pipeline I use locally into a browser-based portfolio app that can run directly on my website.
+        </p>
       </div>
 
       <div class="project-features">
         <h4>Key features / highlights</h4>
         <ul>
-          <li>Move and game state detection</li>
-          <li>Robotic move execution</li>
+          <li>Embedded Cesium webapp hosted directly inside the Projects page</li>
+          <li>Mars-centered visualization with time-dynamic trajectory playback</li>
+          <li>Scene loading from pre-generated CZML mission data</li>
+          <li>Body-fixed viewing mode with timeline and animation controls</li>
         </ul>
       </div>
 
       <div class="project-tech">
-        <h4>Tech & tools</h4>
+        <h4>Tech &amp; tools</h4>
         <ul class="tech-list" aria-label="Technologies used">
-          <li>ROS2 Humble</li>
           <li>Python</li>
-          <li>OpenCV</li>
-          <li>Raspberry Pi</li>
+          <li>CesiumJS</li>
+          <li>CZML</li>
+          <li>Orekit</li>
+          <li>JavaScript</li>
+          <li>HTML/CSS</li>
         </ul>
       </div>
 
       <div class="project-role">
         <h4>My role</h4>
-        <p>Designed and coded the website in it's entirety, enabled deployment via GitHub Actions and wrote-created the entire content. </p>
+        <p>
+          I adapted my Python/Cesium workflow into a browser-hosted interactive demo, structured the web asset pipeline, and integrated the viewer directly into the portfolio so it behaves like a real embedded engineering app instead of a separate page.
+        </p>
       </div>
 
-      <div class="project-links" aria-label="Project links">
-        <!--<a class="btn btn-primary" href="index.html">Live demo (local)</a>-->
-        <a class="btn" href="https://github.com/aallonas/open_manipulator_tictactoe" target="_blank" rel="noopener noreferrer">Source Code(GitHub)</a>
-      </div>
-    </section>
-
-    <footer class="project-footer" aria-hidden="false">
-      <p class="project-stats">Duration: 3 months • Team: 3  • Status: Active</p>
-    </footer>
-  </article>
-
-  <article class="project" role="article" aria-labelledby="project-title-portfolio-site" data-project-id="portfolio-site" itemscope itemtype="https://schema.org/CreativeWork">
-    <header class="project-header">
-      <h2 id="project-title-portfolio-site" class="project-title" itemprop="name">Personal Portfolio Website</h2>
-      <p class="project-meta">
-        <time class="project-date" datetime="2025-10-15" itemprop="datePublished">Oct 2025</time>
-        <span class="project-role" itemprop="author">• Developer</span>
-        <span class="project-tags">• <span itemprop="keywords">portfolio, web, accessibility</span></span>
-      </p>
-      <p class="project-summary" itemprop="description">
-        Static, accessible portfolio to showcase projects, experience and resumes.
-        lightweight, responsive, and easy to maintain.
-      </p>
-    </header>
-
-    <figure class="project-media">
-      <img src="assets/pictures/portfolio.png" alt=" screenshot of the portfolio website code editor" itemprop="image" />
-      <figcaption>Website code snippet.</figcaption>
-    </figure>
-
-    <section class="project-details">
-      <h3 class="sr-only">Project details</h3>
-
-      <div class="project-overview">
-        <h4>Overview</h4>
-        <p>Built a small static site (this repository) to present coursework, projects and CV. Focused on semantic HTML, keyboard accessibility and a repeatable article structure so each project can be added quickly or templated for automation.</p>
+      <div class="project-links webapp-controls" aria-label="Project links">
+        <button class="btn btn-primary" id="launchMarsAppBtn" type="button">Launch Demo</button>
+        <button class="btn" id="hideMarsAppBtn" type="button" style="display: none;">Hide Demo</button>
+        <a class="btn" href="https://github.com/henryflushman" target="_blank" rel="noopener noreferrer">Source Code (GitHub)</a>
       </div>
 
-      <div class="project-features">
-        <h4>Key features / highlights</h4>
-        <ul>
-          <li>Reusable templates across the entire site</li>
-          <li>Multiple media management (computers, smartphone ...)</li>
-          <li>FTP deployment to OVHcloud servers</li>
-        </ul>
-      </div>
+      <div class="project-webapp-shell" aria-label="Mars visualizer web application">
+        <div class="webapp-toolbar" id="marsToolbar">
+          <div class="webapp-toolbar-left">
+            <label for="marsRotationMode">View Mode:</label>
+            <select id="marsRotationMode">
+              <option value="fixed">Body-Fixed</option>
+              <option value="icrf">Inertial (Earth only)</option>
+            </select>
+          </div>
+          <div class="webapp-status" id="marsStatus">Viewer not started.</div>
+        </div>
 
-      <div class="project-tech">
-        <h4>Tech & tools</h4>
-        <ul class="tech-list" aria-label="Technologies used">
-          <li>HTML5, CSS3</li>
-          <li>Git, GitHub Actions</li>
-          <li>OVHcloud</li>
-        </ul>
-      </div>
-
-      <div class="project-role">
-        <h4>My role</h4>
-        <p>Designed and coded the website in it's entirety, enabled deployment via GitHub Actions and wrote-created the entire content. </p>
-      </div>
-
-      <div class="project-links" aria-label="Project links">
-        <a class="btn" href="https://github.com/aallonas/portfolio" target="_blank" rel="noopener noreferrer">Source Code(GitHub)</a>
+        <div id="marsViewerContainer"></div>
       </div>
     </section>
 
@@ -234,27 +222,382 @@
       <p class="project-stats">Duration: Ongoing • Team: 1 • Status: Active</p>
     </footer>
   </article>
-  
+
+  <article class="project" role="article" aria-labelledby="project-title-rendezvous" data-project-id="rendezvous" itemscope itemtype="https://schema.org/CreativeWork">
+    <header class="project-header">
+      <h2 id="project-title-rendezvous" class="project-title" itemprop="name">Orbital Debris Rendezvous Mission Design</h2>
+      <p class="project-meta">
+        <time class="project-date" datetime="2025-10-01" itemprop="datePublished">Fall 2025</time>
+        <span class="project-role" itemprop="author">• Developer</span>
+        <span class="project-tags">• <span itemprop="keywords">Orbital Mechanics, Lambert, Mission Design</span></span>
+      </p>
+      <p class="project-summary" itemprop="description">
+        Computational mission design project focused on rendezvous with orbital debris using transfer analysis and launch window optimization.
+      </p>
+    </header>
+
+    <figure class="project-media">
+      <img src="assets/pictures/portfolio.png" alt="Orbital mechanics project placeholder image" itemprop="image">
+      <figcaption>Mission design workflow and analysis pipeline.</figcaption>
+    </figure>
+
+    <section class="project-details">
+      <h3 class="sr-only">Project details</h3>
+
+      <div class="project-overview">
+        <h4>Overview</h4>
+        <p>
+          This project focused on designing a rendezvous mission with space debris. I calculated maneuver timing, mission duration, and delta-V requirements while evaluating transfer opportunities with Lambert-based trajectory analysis.
+        </p>
+      </div>
+
+      <div class="project-features">
+        <h4>Key features / highlights</h4>
+        <ul>
+          <li>Rendezvous mission planning</li>
+          <li>Delta-V and time-of-flight analysis</li>
+          <li>Porkchop plot generation</li>
+          <li>Transfer window optimization</li>
+        </ul>
+      </div>
+
+      <div class="project-tech">
+        <h4>Tech &amp; tools</h4>
+        <ul class="tech-list" aria-label="Technologies used">
+          <li>Python</li>
+          <li>MATLAB</li>
+          <li>Lambert Solver</li>
+          <li>Orbital Mechanics</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="project-footer" aria-hidden="false">
+      <p class="project-stats">Duration: 1 quarter • Team: 1 • Status: Completed</p>
+    </footer>
+  </article>
+
+  <article class="project" role="article" aria-labelledby="project-title-mission-control" data-project-id="mission-control" itemscope itemtype="https://schema.org/CreativeWork">
+    <header class="project-header">
+      <h2 id="project-title-mission-control" class="project-title" itemprop="name">Mission Control Satellite Tracker</h2>
+      <p class="project-meta">
+        <time class="project-date" datetime="2025-09-01" itemprop="datePublished">2025 - Present</time>
+        <span class="project-role" itemprop="author">• Developer</span>
+        <span class="project-tags">• <span itemprop="keywords">Python, APIs, OOP, Space Operations</span></span>
+      </p>
+      <p class="project-summary" itemprop="description">
+        Software work supporting a mission control center for satellite ground station operations.
+      </p>
+    </header>
+
+    <figure class="project-media">
+      <img src="assets/pictures/portfolio.png" alt="Mission control software placeholder image" itemprop="image">
+      <figcaption>Mission operations and data-processing workflow.</figcaption>
+    </figure>
+
+    <section class="project-details">
+      <h3 class="sr-only">Project details</h3>
+
+      <div class="project-overview">
+        <h4>Overview</h4>
+        <p>
+          This project focuses on developing backend software tools for mission control applications. Work includes handling orbital object data, building reusable software structures, and supporting visualization and data analysis for in-orbit objects.
+        </p>
+      </div>
+
+      <div class="project-features">
+        <h4>Key features / highlights</h4>
+        <ul>
+          <li>Object-oriented backend development</li>
+          <li>Space-Track / SATCAT data handling</li>
+          <li>Visualization support for mission operations</li>
+          <li>Collaborative repository development with Git</li>
+        </ul>
+      </div>
+
+      <div class="project-tech">
+        <h4>Tech &amp; tools</h4>
+        <ul class="tech-list" aria-label="Technologies used">
+          <li>Python</li>
+          <li>Git</li>
+          <li>GitHub</li>
+          <li>HTML</li>
+          <li>JavaScript</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="project-footer" aria-hidden="false">
+      <p class="project-stats">Duration: Ongoing • Team: Collaborative • Status: Active</p>
+    </footer>
+  </article>
+
+  <article class="project" role="article" aria-labelledby="project-title-portfolio" data-project-id="portfolio" itemscope itemtype="https://schema.org/CreativeWork">
+    <header class="project-header">
+      <h2 id="project-title-portfolio" class="project-title" itemprop="name">Personal Portfolio Website</h2>
+      <p class="project-meta">
+        <time class="project-date" datetime="2026-04-11" itemprop="datePublished">2026</time>
+        <span class="project-role" itemprop="author">• Developer</span>
+        <span class="project-tags">• <span itemprop="keywords">Portfolio, Web, Accessibility</span></span>
+      </p>
+      <p class="project-summary" itemprop="description">
+        Static responsive portfolio website built to showcase projects, education, experience, and interactive engineering demos.
+      </p>
+    </header>
+
+    <figure class="project-media">
+      <img src="assets/pictures/portfolio.png" alt="Portfolio website screenshot" itemprop="image">
+      <figcaption>Current version of the portfolio website.</figcaption>
+    </figure>
+
+    <section class="project-details">
+      <h3 class="sr-only">Project details</h3>
+
+      <div class="project-overview">
+        <h4>Overview</h4>
+        <p>
+          I built this site to present my aerospace coursework, technical experience, and interactive tools in a cleaner and more engaging way than a resume alone. The site is structured for easy maintenance and future expansion with more embedded webapps.
+        </p>
+      </div>
+
+      <div class="project-features">
+        <h4>Key features / highlights</h4>
+        <ul>
+          <li>Reusable project and experience layouts</li>
+          <li>Responsive navigation and mobile-friendly styling</li>
+          <li>Embedded engineering webapp support</li>
+          <li>GitHub-hosted static deployment</li>
+        </ul>
+      </div>
+
+      <div class="project-tech">
+        <h4>Tech &amp; tools</h4>
+        <ul class="tech-list" aria-label="Technologies used">
+          <li>HTML5</li>
+          <li>CSS3</li>
+          <li>JavaScript</li>
+          <li>GitHub Pages</li>
+        </ul>
+      </div>
+
+      <div class="project-links" aria-label="Project links">
+        <a class="btn" href="https://github.com/henryflushman" target="_blank" rel="noopener noreferrer">Source Code (GitHub)</a>
+      </div>
+    </section>
+
+    <footer class="project-footer" aria-hidden="false">
+      <p class="project-stats">Duration: Ongoing • Team: 1 • Status: Active</p>
+    </footer>
+  </article>
+
   <footer class="site-footer">
-    <p>© 2025 Alexandre Allonas &mdash; Mechatronics Engineering Student @ INSA Strasbourg</p>
+    <p>&copy; 2025 Henry Flushman &mdash; Aerospace Engineering Student @ Cal Poly San Luis Obispo</p>
     <p>
       <a href="index.html" class="footer-link">
-        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:middle;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:middle;">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
         <span class="footer-link-text">Home</span>
-      </a> |
-      <a href="https://github.com/aallonas" target="_blank" class="footer-link">
-        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:middle;"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.32 6.84 9.67.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.38 9.38 0 0 1 12 6.84c.85.004 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+      </a>
+      |
+      <a href="https://github.com/henryflushman" target="_blank" rel="noopener noreferrer" class="footer-link">
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:middle;">
+          <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.32 6.84 9.67.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.38 9.38 0 0 1 12 6.84c.85.004 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/>
+        </svg>
         <span class="footer-link-text">GitHub</span>
-      </a> |
-      <a href="https://linkedin.com/in/alexandre-allonas-ba664b207" target="_blank" class="footer-link">
-        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:middle;"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm15.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg>
+      </a>
+      |
+      <a href="https://www.linkedin.com/in/henryflushman" target="_blank" rel="noopener noreferrer" class="footer-link">
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:middle;">
+          <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm15.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/>
+        </svg>
         <span class="footer-link-text">LinkedIn</span>
-      </a> |
+      </a>
+      |
       <a href="contact.html" class="footer-link">
-        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:middle;"><path d="M21 6.5a2.5 2.5 0 0 0-2.5-2.5h-13A2.5 2.5 0 0 0 3 6.5v11A2.5 2.5 0 0 0 5.5 20h13a2.5 2.5 0 0 0 2.5-2.5v-11zm-2.5-.5a.5.5 0 0 1 .5.5v.379l-8 5.333-8-5.333V6a.5.5 0 0 1 .5-.5h15zm.5 12a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V8.121l7.5 5 7.5-5V18z"/></svg>
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:middle;">
+          <path d="M21 6.5a2.5 2.5 0 0 0-2.5-2.5h-13A2.5 2.5 0 0 0 3 6.5v11A2.5 2.5 0 0 0 5.5 20h13a2.5 2.5 0 0 0 2.5-2.5v-11zm-2.5-.5a.5.5 0 0 1 .5.5v.379l-8 5.333-8-5.333V6a.5.5 0 0 1 .5-.5h15zm.5 12a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V8.121l7.5 5 7.5-5V18z"/>
+        </svg>
         <span class="footer-link-text">Contact</span>
       </a>
     </p>
   </footer>
+
+  <script>
+    const launchMarsAppBtn = document.getElementById('launchMarsAppBtn');
+    const hideMarsAppBtn = document.getElementById('hideMarsAppBtn');
+    const marsViewerContainer = document.getElementById('marsViewerContainer');
+    const marsToolbar = document.getElementById('marsToolbar');
+    const marsRotationMode = document.getElementById('marsRotationMode');
+    const marsStatus = document.getElementById('marsStatus');
+
+    let marsViewer = null;
+    let marsIcrfAdded = false;
+
+    function setMarsStatus(message) {
+      marsStatus.textContent = message;
+      console.log(message);
+    }
+
+    function extractAvailability(rawCzml) {
+      const documentPacket = rawCzml.find(packet => packet.id === 'document');
+      if (!documentPacket || !documentPacket.availability) {
+        return null;
+      }
+
+      const [startStr, stopStr] = documentPacket.availability.split('/');
+      return {
+        start: Cesium.JulianDate.fromIso8601(startStr),
+        stop: Cesium.JulianDate.fromIso8601(stopStr)
+      };
+    }
+
+    function applyTagFilterToDataSource(ds, tags) {
+      if (tags.length === 0) return;
+
+      const entities = ds.entities.values.slice();
+      for (let i = 0; i < entities.length; i++) {
+        const id = entities[i].id || '';
+        if (id !== 'document' && !tags.some(tag => id.startsWith(tag + '/'))) {
+          ds.entities.remove(entities[i]);
+        }
+      }
+    }
+
+    async function fetchJson(url, label) {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`${label} fetch failed: ${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    }
+
+    async function createMarsViewer(containerId) {
+      setMarsStatus('Creating Mars viewer...');
+
+      const marsEllipsoid = new Cesium.Ellipsoid(3396190.0, 3396190.0, 3376200.0);
+
+      const viewer = new Cesium.Viewer(containerId, {
+        baseLayerPicker: false,
+        geocoder: false,
+        shadows: false,
+        sceneModePicker: true,
+        homeButton: true,
+        fullscreenButton: true,
+        timeline: true,
+        animation: true,
+        selectionIndicator: true,
+        infoBox: true,
+        contextOptions: { alpha: true },
+        globe: new Cesium.Globe(marsEllipsoid)
+      });
+
+      Cesium.Ellipsoid.default = marsEllipsoid;
+      viewer.scene.screenSpaceCameraController.minimumZoomDistance = 0.01;
+
+      const marsImagery = new Cesium.UrlTemplateImageryProvider({
+        url: 'https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0/default/default028mm/{z}/{y}/{x}.jpg',
+        minimumLevel: 0,
+        maximumLevel: 8,
+        tilingScheme: new Cesium.GeographicTilingScheme()
+      });
+
+      viewer.scene.globe.imageryLayers.addImageryProvider(marsImagery);
+      viewer.scene.globe.show = true;
+      viewer.scene.globe.enableLighting = true;
+      viewer.scene.sun.show = true;
+      viewer.scene.light = new Cesium.SunLight();
+
+      viewer.camera.setView({
+        destination: Cesium.Cartesian3.fromDegrees(0, 0, 10000000)
+      });
+
+      return viewer;
+    }
+
+    function setMarsRotationMode(selected) {
+      if (!marsViewer) return;
+
+      if (selected === 'icrf') {
+        marsRotationMode.value = 'fixed';
+        return;
+      }
+
+      if (marsIcrfAdded) {
+        marsViewer.scene.postUpdate.removeEventListener(marsIcrfTransform);
+        marsIcrfAdded = false;
+      }
+
+      marsViewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+      marsViewer.camera.flyHome(0);
+    }
+
+    function marsIcrfTransform(scene, time) {
+      return;
+    }
+
+    marsRotationMode.addEventListener('change', (event) => {
+      setMarsRotationMode(event.target.value);
+    });
+
+    async function loadMarsSceneDataSource() {
+      const sceneName = 'mars_orbit';
+      const tagFilter = ['satellite'];
+      const sceneCzmlUrl = 'data/cesium/Constellations/' + sceneName + '.czml';
+
+      setMarsStatus('Loading scene data...');
+
+      const rawSceneCzml = await fetchJson(sceneCzmlUrl, 'Scene CZML');
+      const availability = extractAvailability(rawSceneCzml);
+
+      const sceneDs = await Cesium.CzmlDataSource.load(rawSceneCzml);
+      applyTagFilterToDataSource(sceneDs, tagFilter);
+      await marsViewer.dataSources.add(sceneDs);
+
+      if (availability) {
+        marsViewer.clock.startTime = availability.start.clone();
+        marsViewer.clock.stopTime = availability.stop.clone();
+        marsViewer.clock.currentTime = availability.start.clone();
+        marsViewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
+        marsViewer.clock.clockStep = Cesium.ClockStep.SYSTEM_CLOCK_MULTIPLIER;
+        marsViewer.clock.multiplier = 1000;
+        marsViewer.timeline.zoomTo(availability.start, availability.stop);
+      }
+
+      setMarsStatus('Mars visualizer loaded.');
+    }
+
+    async function launchMarsApp() {
+      if (marsViewer) {
+        marsViewerContainer.classList.add('active');
+        marsToolbar.classList.add('active');
+        hideMarsAppBtn.style.display = 'inline-flex';
+        setMarsStatus('Mars visualizer loaded.');
+        return;
+      }
+
+      marsViewerContainer.classList.add('active');
+      marsToolbar.classList.add('active');
+      hideMarsAppBtn.style.display = 'inline-flex';
+
+      try {
+        marsViewer = await createMarsViewer('marsViewerContainer');
+        await loadMarsSceneDataSource();
+      } catch (error) {
+        console.error('Mars viewer initialization failed:', error);
+        setMarsStatus('Viewer failed to initialize. Check file paths and browser console.');
+      }
+    }
+
+    function hideMarsApp() {
+      marsViewerContainer.classList.remove('active');
+      marsToolbar.classList.remove('active');
+      hideMarsAppBtn.style.display = 'none';
+      setMarsStatus('Viewer hidden.');
+    }
+
+    launchMarsAppBtn.addEventListener('click', launchMarsApp);
+    hideMarsAppBtn.addEventListener('click', hideMarsApp);
+  </script>
 </body>
 </html>
