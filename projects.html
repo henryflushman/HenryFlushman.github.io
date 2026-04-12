@@ -424,168 +424,220 @@
     </p>
   </footer>
 
-  <script>
-    const launchMarsAppBtn = document.getElementById('launchMarsAppBtn');
-    const hideMarsAppBtn = document.getElementById('hideMarsAppBtn');
-    const marsViewerContainer = document.getElementById('marsViewerContainer');
-    const marsToolbar = document.getElementById('marsToolbar');
-    const marsRotationMode = document.getElementById('marsRotationMode');
-    const marsStatus = document.getElementById('marsStatus');
+<script>
+  const launchMarsAppBtn = document.getElementById('launchMarsAppBtn');
+  const hideMarsAppBtn = document.getElementById('hideMarsAppBtn');
+  const marsViewerContainer = document.getElementById('marsViewerContainer');
+  const marsToolbar = document.getElementById('marsToolbar');
+  const marsRotationMode = document.getElementById('marsRotationMode');
+  const marsStatus = document.getElementById('marsStatus');
 
-    let marsViewer = null;
+  let marsViewer = null;
+  let marsIcrfAdded = false;
 
-    function setMarsStatus(message) {
-      marsStatus.textContent = message;
-      console.log(message);
+  const marsSceneName = 'mars_orbit';
+  const marsTagFilter = ['satellite'];
+  const marsBody = 'mars';
+
+  function setMarsStatus(message) {
+    marsStatus.textContent = message;
+    console.log(message);
+  }
+
+  function extractAvailability(rawCzml) {
+    const documentPacket = rawCzml.find(packet => packet.id === 'document');
+    if (!documentPacket || !documentPacket.availability) {
+      return null;
     }
 
-    function extractAvailability(rawCzml) {
-      const documentPacket = rawCzml.find(packet => packet.id === 'document');
-      if (!documentPacket || !documentPacket.availability) {
-        return null;
+    const [startStr, stopStr] = documentPacket.availability.split('/');
+    return {
+      start: Cesium.JulianDate.fromIso8601(startStr),
+      stop: Cesium.JulianDate.fromIso8601(stopStr)
+    };
+  }
+
+  function applyTagFilterToDataSource(ds, tags) {
+    if (tags.length === 0) return;
+
+    const entities = ds.entities.values;
+    for (let i = entities.length - 1; i >= 0; i--) {
+      const id = entities[i].id;
+      if (id !== 'document' && !tags.some(tag => id.startsWith(tag + '/'))) {
+        ds.entities.remove(entities[i]);
       }
+    }
+  }
 
-      const [startStr, stopStr] = documentPacket.availability.split('/');
-      return {
-        start: Cesium.JulianDate.fromIso8601(startStr),
-        stop: Cesium.JulianDate.fromIso8601(stopStr)
-      };
+  async function fetchJson(url, label) {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`${label} fetch failed: ${response.status} ${response.statusText}`);
+    }
+    return response.json();
+  }
+
+  function getBodyCameraHeight(selectedBody) {
+    const heights = {
+      mercury: 12000000,
+      venus: 18000000,
+      earth: 20000000,
+      moon: 6000000,
+      mars: 10000000,
+      jupiter: 80000000,
+      saturn: 90000000,
+      uranus: 70000000,
+      neptune: 70000000,
+      pluto: 4000000,
+      sun: 300000000
+    };
+    return heights[selectedBody] || 20000000;
+  }
+
+  async function createMarsViewer(containerId, ionToken = '') {
+    console.log('[Cesium] Creating Mars viewer...');
+    setMarsStatus('Creating Mars viewer...');
+
+    if (ionToken) {
+      Cesium.Ion.defaultAccessToken = ionToken;
     }
 
-    function applyTagFilterToDataSource(ds, tags) {
-      if (tags.length === 0) return;
+    const marsEllipsoid = new Cesium.Ellipsoid(3396190.0, 3396190.0, 3376200.0);
 
-      const entities = ds.entities.values.slice();
-      for (let i = 0; i < entities.length; i++) {
-        const id = entities[i].id || '';
-        if (id !== 'document' && !tags.some(tag => id.startsWith(tag + '/'))) {
-          ds.entities.remove(entities[i]);
-        }
-      }
-    }
-
-    async function fetchJson(url, label) {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`${label} fetch failed: ${response.status} ${response.statusText}`);
-      }
-      return response.json();
-    }
-
-    async function createMarsViewer(containerId) {
-      setMarsStatus('Creating Mars viewer...');
-
-      const marsEllipsoid = new Cesium.Ellipsoid(3396190.0, 3396190.0, 3376200.0);
-
-      const viewer = new Cesium.Viewer(containerId, {
-        baseLayerPicker: false,
-        geocoder: false,
-        shadows: false,
-        sceneModePicker: true,
-        homeButton: true,
-        fullscreenButton: true,
-        timeline: true,
-        animation: true,
-        selectionIndicator: true,
-        infoBox: true,
-        contextOptions: { alpha: true },
-        globe: new Cesium.Globe(marsEllipsoid)
-      });
-
-      Cesium.Ellipsoid.default = marsEllipsoid;
-      viewer.scene.screenSpaceCameraController.minimumZoomDistance = 0.01;
-      viewer.scene.globe.enableLighting = true;
-      viewer.scene.sun.show = true;
-      viewer.scene.light = new Cesium.SunLight();
-
-      const marsImagery = new Cesium.UrlTemplateImageryProvider({
-        url: 'https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0/default/default028mm/{z}/{y}/{x}.jpg',
-        minimumLevel: 0,
-        maximumLevel: 8,
-        tilingScheme: new Cesium.GeographicTilingScheme()
-      });
-
-      viewer.scene.globe.imageryLayers.addImageryProvider(marsImagery);
-      viewer.scene.globe.show = true;
-
-      viewer.camera.setView({
-        destination: Cesium.Cartesian3.fromDegrees(0, 0, 10000000)
-      });
-
-      return viewer;
-    }
-
-    marsRotationMode.addEventListener('change', () => {
-      if (!marsViewer) return;
-      marsRotationMode.value = 'fixed';
-      marsViewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
-      marsViewer.camera.flyHome(0);
+    const viewer = new Cesium.Viewer(containerId, {
+      terrainProvider: false,
+      baseLayer: false,
+      baseLayerPicker: false,
+      geocoder: false,
+      shadows: false,
+      globe: new Cesium.Globe(marsEllipsoid),
+      skyBox: Cesium.SkyBox.createEarthSkyBox(),
+      skyAtmosphere: new Cesium.SkyAtmosphere(marsEllipsoid),
+      sceneModePicker: true,
+      homeButton: true,
+      fullscreenButton: true,
+      timeline: true,
+      animation: true,
+      selectionIndicator: true,
+      infoBox: true,
+      contextOptions: { alpha: true }
     });
 
-    async function loadMarsSceneDataSource() {
-      const sceneName = 'mars_orbit';
-      const tagFilter = ['satellite'];
-      const sceneCzmlUrl = './Cesium/Constellations/' + sceneName + '.czml';
+    Cesium.Ellipsoid.default = marsEllipsoid;
+    viewer.scene.screenSpaceCameraController.minimumZoomDistance = 0.01;
 
-      setMarsStatus('Loading scene data...');
+    const marsImagery = new Cesium.UrlTemplateImageryProvider({
+      url: 'https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0/default/default028mm/{z}/{y}/{x}.jpg',
+      minimumLevel: 0,
+      maximumLevel: 8,
+      tilingScheme: new Cesium.GeographicTilingScheme()
+    });
 
-      const rawSceneCzml = await fetchJson(sceneCzmlUrl, 'Scene CZML');
-      const availability = extractAvailability(rawSceneCzml);
+    viewer.scene.globe.imageryLayers.addImageryProvider(marsImagery);
+    viewer.scene.globe.show = true;
 
-      const sceneDs = await Cesium.CzmlDataSource.load(rawSceneCzml);
-      applyTagFilterToDataSource(sceneDs, tagFilter);
-      await marsViewer.dataSources.add(sceneDs);
+    viewer.scene.globe.enableLighting = true;
+    viewer.scene.sun.show = true;
+    viewer.scene.light = new Cesium.SunLight();
 
-      if (availability) {
-        marsViewer.clock.startTime = availability.start.clone();
-        marsViewer.clock.stopTime = availability.stop.clone();
-        marsViewer.clock.currentTime = availability.start.clone();
-        marsViewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
-        marsViewer.clock.clockStep = Cesium.ClockStep.SYSTEM_CLOCK_MULTIPLIER;
-        marsViewer.clock.multiplier = 1000;
-        marsViewer.timeline.zoomTo(availability.start, availability.stop);
-      }
+    return viewer;
+  }
 
-      setMarsStatus('Mars visualizer loaded.');
+  function setMarsRotationMode(selected) {
+    if (!marsViewer) return;
+
+    if (selected === 'icrf') {
+      marsRotationMode.value = 'fixed';
+      return;
     }
 
-    async function launchMarsApp() {
-      if (typeof Cesium === 'undefined') {
-        setMarsStatus('Cesium failed to load. Check script paths.');
-        console.error('Cesium is undefined. Expected ./Cesium/Cesium.js to load.');
-        return;
-      }
+    if (marsIcrfAdded) {
+      marsViewer.scene.postUpdate.removeEventListener(marsIcrfTransform);
+      marsIcrfAdded = false;
+    }
 
-      if (marsViewer) {
-        marsViewerContainer.classList.add('active');
-        marsToolbar.classList.add('active');
-        hideMarsAppBtn.style.display = 'inline-flex';
-        setMarsStatus('Mars visualizer loaded.');
-        return;
-      }
+    marsViewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+    marsViewer.camera.flyHome(0);
+  }
 
+  function marsIcrfTransform(scene, time) {
+    return;
+  }
+
+  marsRotationMode.addEventListener('change', (event) => {
+    setMarsRotationMode(event.target.value);
+  });
+
+  async function loadMarsSceneDataSource() {
+    const sceneCzmlUrl = './Cesium/Constellations/' + marsSceneName + '.czml';
+    console.log('Loading scene CZML:', sceneCzmlUrl);
+    setMarsStatus('Loading scene data...');
+
+    const rawSceneCzml = await fetchJson(sceneCzmlUrl, 'Scene CZML');
+    const availability = extractAvailability(rawSceneCzml);
+
+    const sceneDs = await Cesium.CzmlDataSource.load(rawSceneCzml);
+    applyTagFilterToDataSource(sceneDs, marsTagFilter);
+    await marsViewer.dataSources.add(sceneDs);
+
+    if (availability) {
+      marsViewer.clock.startTime = availability.start.clone();
+      marsViewer.clock.stopTime = availability.stop.clone();
+      marsViewer.clock.currentTime = availability.start.clone();
+      marsViewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
+      marsViewer.clock.clockStep = Cesium.ClockStep.SYSTEM_CLOCK_MULTIPLIER;
+      marsViewer.clock.multiplier = 1000;
+      marsViewer.timeline.zoomTo(availability.start, availability.stop);
+    }
+
+    // Match the original viewer behavior:
+    // set a Mars-global camera view rather than zooming to the datasource.
+    marsViewer.scene.camera.setView({
+      destination: Cesium.Cartesian3.fromDegrees(0, 0, getBodyCameraHeight(marsBody))
+    });
+
+    setMarsStatus('Mars visualizer loaded.');
+  }
+
+  async function launchMarsApp() {
+    if (typeof Cesium === 'undefined') {
+      setMarsStatus('Cesium failed to load. Check script paths.');
+      console.error('Cesium is undefined. Expected ./Cesium/Cesium.js to load.');
+      return;
+    }
+
+    if (marsViewer) {
       marsViewerContainer.classList.add('active');
       marsToolbar.classList.add('active');
       hideMarsAppBtn.style.display = 'inline-flex';
-
-      try {
-        marsViewer = await createMarsViewer('marsViewerContainer');
-        await loadMarsSceneDataSource();
-      } catch (error) {
-        console.error('Mars viewer initialization failed:', error);
-        setMarsStatus('Viewer failed to initialize. Check file paths and browser console.');
-      }
+      marsViewer.resize();
+      setMarsStatus('Mars visualizer loaded.');
+      return;
     }
 
-    function hideMarsApp() {
-      marsViewerContainer.classList.remove('active');
-      marsToolbar.classList.remove('active');
-      hideMarsAppBtn.style.display = 'none';
-      setMarsStatus('Viewer hidden.');
-    }
+    marsViewerContainer.classList.add('active');
+    marsToolbar.classList.add('active');
+    hideMarsAppBtn.style.display = 'inline-flex';
 
-    launchMarsAppBtn.addEventListener('click', launchMarsApp);
-    hideMarsAppBtn.addEventListener('click', hideMarsApp);
-  </script>
+    try {
+      marsViewer = await createMarsViewer('marsViewerContainer');
+      await loadMarsSceneDataSource();
+      marsViewer.resize();
+    } catch (error) {
+      console.error('Mars viewer initialization failed:', error);
+      setMarsStatus('Viewer failed to initialize. Check file paths and browser console.');
+    }
+  }
+
+  function hideMarsApp() {
+    marsViewerContainer.classList.remove('active');
+    marsToolbar.classList.remove('active');
+    hideMarsAppBtn.style.display = 'none';
+    setMarsStatus('Viewer hidden.');
+  }
+
+  launchMarsAppBtn.addEventListener('click', launchMarsApp);
+  hideMarsAppBtn.addEventListener('click', hideMarsApp);
+</script>
 </body>
 </html>
