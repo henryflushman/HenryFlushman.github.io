@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,7 +10,9 @@
   <script>
     window.CESIUM_BASE_URL = "./Cesium";
   </script>
+
   <script src="./Cesium/Cesium.js"></script>
+
   <link rel="stylesheet" href="./Cesium/Widgets/widgets.css">
 
   <style>
@@ -98,6 +101,7 @@
       }
     }
   </style>
+
 </head>
 <body>
   <nav>
@@ -153,77 +157,79 @@
       <p class="project-meta">
         <time class="project-date" datetime="2026-04-11" itemprop="datePublished">2026</time>
         <span class="project-role" itemprop="author">• Developer</span>
-        <span class="project-tags">• <span itemprop="keywords">Python, CesiumJS, CZML, Orbital Mechanics</span></span>
+        <span class="project-tags">• <span itemprop="keywords">Python, CesiumJS, CZML, Space Visualization</span></span>
       </p>
       <p class="project-summary" itemprop="description">
-        Interactive Mars mission viewer embedded directly into this portfolio. The scene is generated from Python-based orbital modeling and rendered in-browser using Cesium.
+        Interactive spacecraft visualization tool built to display orbital motion and mission geometry in a browser-based Cesium environment.
       </p>
     </header>
 
-    <section class="project-details">
-      <h3 class="sr-only">Project details</h3>
+```
+<section class="project-details">
+  <h3 class="sr-only">Project details</h3>
 
-      <div class="project-overview">
-        <h4>Overview</h4>
-        <p>
-          This webapp visualizes a Mars orbiter trajectory using a CZML scene generated from my Python workflow. The goal was to bring the same Cesium-based mission visualization pipeline I use locally into a browser-based portfolio app that can run directly on my website.
-        </p>
+  <div class="project-overview">
+    <h4>Overview</h4>
+    <p>
+      This project extends my interest in spacecraft simulation and visualization by bringing a Python-generated orbital scene into a browser-based Cesium application. The goal was to create a cleaner way to present mission geometry, trajectory behavior, and time-dynamic orbital data through an interactive web interface.
+    </p>
+  </div>
+
+  <div class="project-features">
+    <h4>Key features / highlights</h4>
+    <ul>
+      <li>Interactive Cesium-based orbital visualization embedded directly into the portfolio</li>
+      <li>Python-generated CZML workflow for time-dynamic mission scenes</li>
+      <li>Playback controls for inspecting orbital motion over time</li>
+      <li>Web-based presentation of simulation and visualization work</li>
+    </ul>
+  </div>
+
+  <div class="project-tech">
+    <h4>Tech &amp; tools</h4>
+    <ul class="tech-list" aria-label="Technologies used">
+      <li>Python</li>
+      <li>CesiumJS</li>
+      <li>CZML</li>
+      <li>JavaScript</li>
+      <li>HTML/CSS</li>
+    </ul>
+  </div>
+
+  <div class="project-role">
+    <h4>My role</h4>
+    <p>
+      I built the visualization workflow, generated the orbital scene data, and integrated the viewer into this site so it functions like an embedded engineering demo rather than a static screenshot.
+    </p>
+  </div>
+
+  <div class="project-links webapp-controls" aria-label="Project links">
+    <button class="btn btn-primary" id="launchMarsAppBtn" type="button">Launch Demo</button>
+    <button class="btn" id="hideMarsAppBtn" type="button" style="display: none;">Hide Demo</button>
+    <a class="btn" href="https://github.com/henryflushman" target="_blank" rel="noopener noreferrer">Source Code (GitHub)</a>
+  </div>
+
+  <div class="project-webapp-shell" aria-label="Mars visualizer web application">
+    <div class="webapp-toolbar" id="marsToolbar">
+      <div class="webapp-toolbar-left">
+        <label for="marsRotationMode">View Mode:</label>
+        <select id="marsRotationMode">
+          <option value="fixed">Body-Fixed</option>
+          <option value="icrf">Inertial (Earth only)</option>
+        </select>
       </div>
+      <div class="webapp-status" id="marsStatus">Viewer not started.</div>
+    </div>
 
-      <div class="project-features">
-        <h4>Key features / highlights</h4>
-        <ul>
-          <li>Embedded Cesium webapp hosted directly inside the Projects page</li>
-          <li>Mars-centered visualization with time-dynamic trajectory playback</li>
-          <li>Scene loading from pre-generated CZML mission data</li>
-          <li>Body-fixed viewing mode with timeline and animation controls</li>
-        </ul>
-      </div>
+    <div id="marsViewerContainer"></div>
+  </div>
+</section>
 
-      <div class="project-tech">
-        <h4>Tech &amp; tools</h4>
-        <ul class="tech-list" aria-label="Technologies used">
-          <li>Python</li>
-          <li>CesiumJS</li>
-          <li>CZML</li>
-          <li>Orekit</li>
-          <li>JavaScript</li>
-          <li>HTML/CSS</li>
-        </ul>
-      </div>
+<footer class="project-footer" aria-hidden="false">
+  <p class="project-stats">Duration: Ongoing • Team: 1 • Status: Active</p>
+</footer>
+```
 
-      <div class="project-role">
-        <h4>My role</h4>
-        <p>
-          I adapted my Python/Cesium workflow into a browser-hosted interactive demo, structured the web asset pipeline, and integrated the viewer directly into the portfolio so it behaves like a real embedded engineering app instead of a separate page.
-        </p>
-      </div>
-
-      <div class="project-links webapp-controls" aria-label="Project links">
-        <button class="btn btn-primary" id="launchMarsAppBtn" type="button">Launch Demo</button>
-        <button class="btn" id="hideMarsAppBtn" type="button" style="display: none;">Hide Demo</button>
-        <a class="btn" href="https://github.com/henryflushman" target="_blank" rel="noopener noreferrer">Source Code (GitHub)</a>
-      </div>
-
-      <div class="project-webapp-shell" aria-label="Mars visualizer web application">
-        <div class="webapp-toolbar" id="marsToolbar">
-          <div class="webapp-toolbar-left">
-            <label for="marsRotationMode">View Mode:</label>
-            <select id="marsRotationMode">
-              <option value="fixed">Body-Fixed</option>
-              <option value="icrf">Inertial (Earth only)</option>
-            </select>
-          </div>
-          <div class="webapp-status" id="marsStatus">Viewer not started.</div>
-        </div>
-
-        <div id="marsViewerContainer"></div>
-      </div>
-    </section>
-
-    <footer class="project-footer" aria-hidden="false">
-      <p class="project-stats">Duration: Ongoing • Team: 1 • Status: Active</p>
-    </footer>
   </article>
 
   <article class="project" role="article" aria-labelledby="project-title-rendezvous" data-project-id="rendezvous" itemscope itemtype="https://schema.org/CreativeWork">
@@ -232,169 +238,202 @@
       <p class="project-meta">
         <time class="project-date" datetime="2025-10-01" itemprop="datePublished">Fall 2025</time>
         <span class="project-role" itemprop="author">• Developer</span>
-        <span class="project-tags">• <span itemprop="keywords">Orbital Mechanics, Lambert, Mission Design</span></span>
+        <span class="project-tags">• <span itemprop="keywords">Orbital Mechanics, Mission Design, Lambert Solver, Optimization</span></span>
       </p>
       <p class="project-summary" itemprop="description">
-        Computational mission design project focused on rendezvous with orbital debris using transfer analysis and launch window optimization.
+        Orbital mechanics project focused on planning a rendezvous mission with space debris through transfer analysis, delta-V calculations, and launch window optimization.
       </p>
     </header>
 
-    <figure class="project-media">
-      <img src="./assets/pictures/portfolio.png" alt="Orbital mechanics project placeholder image" itemprop="image">
-      <figcaption>Mission design workflow and analysis pipeline.</figcaption>
-    </figure>
+```
+<figure class="project-media">
+  <img src="./assets/pictures/portfolio.png" alt="Orbital rendezvous mission design project image" itemprop="image">
+  <figcaption>Mission design workflow for debris rendezvous analysis.</figcaption>
+</figure>
 
-    <section class="project-details">
-      <h3 class="sr-only">Project details</h3>
+<section class="project-details">
+  <h3 class="sr-only">Project details</h3>
 
-      <div class="project-overview">
-        <h4>Overview</h4>
-        <p>
-          This project focused on designing a rendezvous mission with space debris. I calculated maneuver timing, mission duration, and delta-V requirements while evaluating transfer opportunities with Lambert-based trajectory analysis.
-        </p>
-      </div>
+  <div class="project-overview">
+    <h4>Overview</h4>
+    <p>
+      Developed as part of my Introduction to Orbital Mechanics coursework, this project involved designing a mission to rendezvous with space debris. I calculated delta-V requirements and maneuver timing, then used Lambert-based transfer analysis to evaluate feasible trajectories and optimize departure and arrival windows.
+    </p>
+  </div>
 
-      <div class="project-features">
-        <h4>Key features / highlights</h4>
-        <ul>
-          <li>Rendezvous mission planning</li>
-          <li>Delta-V and time-of-flight analysis</li>
-          <li>Porkchop plot generation</li>
-          <li>Transfer window optimization</li>
-        </ul>
-      </div>
+  <div class="project-features">
+    <h4>Key features / highlights</h4>
+    <ul>
+      <li>Rendezvous mission design for a target debris object</li>
+      <li>Delta-V and time-of-flight calculations for transfer maneuvers</li>
+      <li>Porkchop plot generation to compare departure and arrival timing</li>
+      <li>Optimization of transfer opportunities using Lambert solutions</li>
+    </ul>
+  </div>
 
-      <div class="project-tech">
-        <h4>Tech &amp; tools</h4>
-        <ul class="tech-list" aria-label="Technologies used">
-          <li>Python</li>
-          <li>MATLAB</li>
-          <li>Lambert Solver</li>
-          <li>Orbital Mechanics</li>
-        </ul>
-      </div>
-    </section>
+  <div class="project-tech">
+    <h4>Tech &amp; tools</h4>
+    <ul class="tech-list" aria-label="Technologies used">
+      <li>Python</li>
+      <li>Orbital Mechanics</li>
+      <li>Lambert Solver</li>
+      <li>Mission Analysis</li>
+    </ul>
+  </div>
 
-    <footer class="project-footer" aria-hidden="false">
-      <p class="project-stats">Duration: 1 quarter • Team: 1 • Status: Completed</p>
-    </footer>
+  <div class="project-role">
+    <h4>My role</h4>
+    <p>
+      I designed the computational workflow, performed the orbital calculations, and built the analysis used to evaluate maneuver timing and identify efficient transfer windows.
+    </p>
+  </div>
+</section>
+
+<footer class="project-footer" aria-hidden="false">
+  <p class="project-stats">Duration: 1 quarter • Team: 1 • Status: Completed</p>
+</footer>
+```
+
   </article>
 
   <article class="project" role="article" aria-labelledby="project-title-mission-control" data-project-id="mission-control" itemscope itemtype="https://schema.org/CreativeWork">
     <header class="project-header">
-      <h2 id="project-title-mission-control" class="project-title" itemprop="name">Mission Control Satellite Tracker</h2>
+      <h2 id="project-title-mission-control" class="project-title" itemprop="name">PolySpace Mission Control Development</h2>
       <p class="project-meta">
-        <time class="project-date" datetime="2025-09-01" itemprop="datePublished">2025 - Present</time>
+        <time class="project-date" datetime="2025-09-01" itemprop="datePublished">Fall 2025 - Present</time>
         <span class="project-role" itemprop="author">• Developer</span>
-        <span class="project-tags">• <span itemprop="keywords">Python, APIs, OOP, Space Operations</span></span>
+        <span class="project-tags">• <span itemprop="keywords">Python, APIs, OOP, SATCAT, Space Operations</span></span>
       </p>
       <p class="project-summary" itemprop="description">
-        Software work supporting a mission control center for satellite ground station operations.
+        Collaborative software development for a mission control center intended to support ground station and spacecraft operations on campus.
       </p>
     </header>
 
-    <figure class="project-media">
-      <img src="./assets/pictures/portfolio.png" alt="Mission control software placeholder image" itemprop="image">
-      <figcaption>Mission operations and data-processing workflow.</figcaption>
-    </figure>
+```
+<figure class="project-media">
+  <img src="./assets/pictures/portfolio.png" alt="Mission control development project image" itemprop="image">
+  <figcaption>Backend and data-handling work for mission control applications.</figcaption>
+</figure>
 
-    <section class="project-details">
-      <h3 class="sr-only">Project details</h3>
+<section class="project-details">
+  <h3 class="sr-only">Project details</h3>
 
-      <div class="project-overview">
-        <h4>Overview</h4>
-        <p>
-          This project focuses on developing backend software tools for mission control applications. Work includes handling orbital object data, building reusable software structures, and supporting visualization and data analysis for in-orbit objects.
-        </p>
-      </div>
+  <div class="project-overview">
+    <h4>Overview</h4>
+    <p>
+      As part of Cal Poly’s PolySpace club, I contribute to the development of a mission control center designed to handle ground station responsibilities for the Cal Poly campus. My work has focused on building reusable backend structures, supporting UI-facing data workflows, and developing tools for analyzing in-orbit object data.
+    </p>
+  </div>
 
-      <div class="project-features">
-        <h4>Key features / highlights</h4>
-        <ul>
-          <li>Object-oriented backend development</li>
-          <li>Space-Track / SATCAT data handling</li>
-          <li>Visualization support for mission operations</li>
-          <li>Collaborative repository development with Git</li>
-        </ul>
-      </div>
+  <div class="project-features">
+    <h4>Key features / highlights</h4>
+    <ul>
+      <li>Object-oriented backend development for mission control software</li>
+      <li>Python constructor for SATCAT data accessed through the Space-Track API</li>
+      <li>Support for data analysis operations involving in-orbit objects</li>
+      <li>HTML and JavaScript work for satellite and stellar body visualization</li>
+      <li>Collaborative Git-based development within a larger repository</li>
+    </ul>
+  </div>
 
-      <div class="project-tech">
-        <h4>Tech &amp; tools</h4>
-        <ul class="tech-list" aria-label="Technologies used">
-          <li>Python</li>
-          <li>Git</li>
-          <li>GitHub</li>
-          <li>HTML</li>
-          <li>JavaScript</li>
-        </ul>
-      </div>
-    </section>
+  <div class="project-tech">
+    <h4>Tech &amp; tools</h4>
+    <ul class="tech-list" aria-label="Technologies used">
+      <li>Python</li>
+      <li>Git</li>
+      <li>GitHub</li>
+      <li>HTML</li>
+      <li>JavaScript</li>
+      <li>Object-Oriented Programming</li>
+    </ul>
+  </div>
 
-    <footer class="project-footer" aria-hidden="false">
-      <p class="project-stats">Duration: Ongoing • Team: Collaborative • Status: Active</p>
-    </footer>
+  <div class="project-role">
+    <h4>My role</h4>
+    <p>
+      I developed Python tools for handling and structuring satellite catalog data, contributed to the mission control codebase architecture, and supported visualization work tied to space operations and object tracking.
+    </p>
+  </div>
+</section>
+
+<footer class="project-footer" aria-hidden="false">
+  <p class="project-stats">Duration: Ongoing • Team: Collaborative • Status: Active</p>
+</footer>
+```
+
   </article>
 
-  <article class="project" role="article" aria-labelledby="project-title-portfolio" data-project-id="portfolio" itemscope itemtype="https://schema.org/CreativeWork">
+  <article class="project" role="article" aria-labelledby="project-title-spacecraft-sim" data-project-id="spacecraft-sim" itemscope itemtype="https://schema.org/CreativeWork">
     <header class="project-header">
-      <h2 id="project-title-portfolio" class="project-title" itemprop="name">Personal Portfolio Website</h2>
+      <h2 id="project-title-spacecraft-sim" class="project-title" itemprop="name">Spacecraft Mission Simulation Repository</h2>
       <p class="project-meta">
-        <time class="project-date" datetime="2026-04-11" itemprop="datePublished">2026</time>
+        <time class="project-date" datetime="2026-01-01" itemprop="datePublished">Spring 2026 - Present</time>
         <span class="project-role" itemprop="author">• Developer</span>
-        <span class="project-tags">• <span itemprop="keywords">Portfolio, Web, Accessibility</span></span>
+        <span class="project-tags">• <span itemprop="keywords">Simulation, GitHub, Python, Shell Scripting</span></span>
       </p>
       <p class="project-summary" itemprop="description">
-        Static responsive portfolio website built to showcase projects, education, experience, and interactive engineering demos.
+        Repository designed to model and simulate multiple stages of a spacecraft mission while providing a consistent development environment for collaborators.
       </p>
     </header>
 
-    <figure class="project-media">
-      <img src="./assets/pictures/portfolio.png" alt="Portfolio website screenshot" itemprop="image">
-      <figcaption>Current version of the portfolio website.</figcaption>
-    </figure>
+```
+<figure class="project-media">
+  <img src="./assets/pictures/portfolio.png" alt="Spacecraft simulation repository project image" itemprop="image">
+  <figcaption>Simulation repository structure and development workflow.</figcaption>
+</figure>
 
-    <section class="project-details">
-      <h3 class="sr-only">Project details</h3>
+<section class="project-details">
+  <h3 class="sr-only">Project details</h3>
 
-      <div class="project-overview">
-        <h4>Overview</h4>
-        <p>
-          I built this site to present my aerospace coursework, technical experience, and interactive tools in a cleaner and more engaging way than a resume alone. The site is structured for easy maintenance and future expansion with more embedded webapps.
-        </p>
-      </div>
+  <div class="project-overview">
+    <h4>Overview</h4>
+    <p>
+      I developed and currently manage a Git repository intended to model and simulate different stages of a spacecraft mission. In addition to the simulation work itself, I designed tooling to make the repository easier for collaborators to use by standardizing the software environment across contributors.
+    </p>
+  </div>
 
-      <div class="project-features">
-        <h4>Key features / highlights</h4>
-        <ul>
-          <li>Reusable project and experience layouts</li>
-          <li>Responsive navigation and mobile-friendly styling</li>
-          <li>Embedded engineering webapp support</li>
-          <li>GitHub-hosted static deployment</li>
-        </ul>
-      </div>
+  <div class="project-features">
+    <h4>Key features / highlights</h4>
+    <ul>
+      <li>Repository architecture for spacecraft mission simulation</li>
+      <li>Modeling support for multiple mission phases</li>
+      <li>Automated Conda environment installation and activation script</li>
+      <li>Improved onboarding and consistency for repository users</li>
+    </ul>
+  </div>
 
-      <div class="project-tech">
-        <h4>Tech &amp; tools</h4>
-        <ul class="tech-list" aria-label="Technologies used">
-          <li>HTML5</li>
-          <li>CSS3</li>
-          <li>JavaScript</li>
-          <li>GitHub Pages</li>
-        </ul>
-      </div>
+  <div class="project-tech">
+    <h4>Tech &amp; tools</h4>
+    <ul class="tech-list" aria-label="Technologies used">
+      <li>Python</li>
+      <li>Git</li>
+      <li>GitHub</li>
+      <li>Bash</li>
+      <li>Conda</li>
+    </ul>
+  </div>
 
-      <div class="project-links" aria-label="Project links">
-        <a class="btn" href="https://github.com/henryflushman" target="_blank" rel="noopener noreferrer">Source Code (GitHub)</a>
-      </div>
-    </section>
+  <div class="project-role">
+    <h4>My role</h4>
+    <p>
+      I set up and manage the repository, developed the shared environment setup script, and structured the codebase to support collaborative spacecraft simulation work.
+    </p>
+  </div>
 
-    <footer class="project-footer" aria-hidden="false">
-      <p class="project-stats">Duration: Ongoing • Team: 1 • Status: Active</p>
-    </footer>
+  <div class="project-links" aria-label="Project links">
+    <a class="btn" href="https://github.com/henryflushman" target="_blank" rel="noopener noreferrer">Source Code (GitHub)</a>
+  </div>
+</section>
+
+<footer class="project-footer" aria-hidden="false">
+  <p class="project-stats">Duration: Ongoing • Team: Collaborative • Status: Active</p>
+</footer>
+```
+
   </article>
 
   <footer class="site-footer">
-    <p>&copy; 2025 Henry Flushman &mdash; Aerospace Engineering Student @ Cal Poly San Luis Obispo</p>
+    <p>&copy; 2026 Henry Flushman &mdash; Aerospace Engineering @ Cal Poly San Luis Obispo</p>
     <p>
       <a href="index.html" class="footer-link">
         <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="vertical-align:middle;">
@@ -725,5 +764,6 @@
     launchMarsAppBtn.addEventListener('click', launchMarsApp);
     hideMarsAppBtn.addEventListener('click', hideMarsApp);
   </script>
+
 </body>
 </html>
