@@ -52,6 +52,9 @@ position: relative;
 overflow-x: hidden;
 }
 
+/* =========================
+Animated Background
+========================= */
 .bg-animation {
 position: fixed;
 inset: 0;
@@ -73,10 +76,10 @@ inset: 0;
 z-index: -2;
 pointer-events: none;
 background-repeat: repeat;
-opacity: 0.55;
 }
 
 .stars {
+opacity: 0.55;
 background-image:
 radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.95), transparent 55%),
 radial-gradient(1.5px 1.5px at 130px 80px, rgba(255,255,255,0.8), transparent 55%),
@@ -92,6 +95,7 @@ animation: driftStars 80s linear infinite;
 }
 
 .stars-2 {
+opacity: 0.35;
 background-image:
 radial-gradient(1px 1px at 60px 110px, rgba(255,255,255,0.7), transparent 55%),
 radial-gradient(1px 1px at 210px 35px, rgba(255,255,255,0.65), transparent 55%),
@@ -101,7 +105,6 @@ radial-gradient(1px 1px at 710px 25px, rgba(255,255,255,0.65), transparent 55%),
 radial-gradient(1px 1px at 870px 170px, rgba(255,255,255,0.6), transparent 55%),
 radial-gradient(1px 1px at 1030px 75px, rgba(255,255,255,0.7), transparent 55%);
 background-size: 1100px 240px;
-opacity: 0.35;
 animation: twinkle 7s ease-in-out infinite alternate, driftStars 120s linear infinite reverse;
 }
 
@@ -132,6 +135,9 @@ opacity: 0.45;
 }
 }
 
+/* =========================
+Base Elements
+========================= */
 img {
 max-width: 100%;
 display: block;
@@ -168,6 +174,9 @@ color: var(--text-soft);
 flex: 1 0 auto;
 }
 
+/* =========================
+Navigation
+========================= */
 nav {
 position: relative;
 width: 100%;
@@ -306,6 +315,9 @@ padding: 0.95rem 1rem;
 }
 }
 
+/* =========================
+Homepage / Presentation
+========================= */
 .presentation {
 width: min(100%, var(--max-width));
 margin: 1rem auto 2rem auto;
@@ -374,11 +386,13 @@ transform: translateY(-2px);
 .presentation .profile-image {
 width: clamp(260px, 34vw, 430px);
 height: auto;
-object-fit: cover;
-border-radius: 28px;
-box-shadow: var(--shadow);
+object-fit: contain;
+border-radius: 0;
+box-shadow: none;
 border: none;
-background: transparent;
+background: transparent !important;
+padding: 0;
+display: block;
 }
 
 .presentation .profile-image {
@@ -402,10 +416,13 @@ text-align: center !important;
 .presentation .profile-pic,
 .presentation .profile-image {
 width: min(100%, 340px);
-border-radius: 22px;
+border-radius: 0;
 }
 }
 
+/* =========================
+Shared Card Layout
+========================= */
 .about-section,
 .contact-form-section,
 .contact-info-section,
@@ -421,6 +438,9 @@ backdrop-filter: blur(26px);
 -webkit-backdrop-filter: blur(26px);
 }
 
+/* =========================
+About
+========================= */
 .about-section {
 width: min(100%, 820px);
 margin: 2rem auto;
@@ -433,6 +453,9 @@ font-size: 1.8rem;
 margin-bottom: 0.9rem;
 }
 
+/* =========================
+Experience / Education
+========================= */
 .experience-list,
 .education-list {
 width: min(100%, 1000px);
@@ -458,10 +481,12 @@ width: 90px;
 height: 90px;
 flex: 0 0 90px;
 object-fit: contain;
-background: transparent;
-border: none;
+background: transparent !important;
+border: none !important;
 border-radius: 0;
+box-shadow: none;
 padding: 0;
+display: block;
 }
 
 .experience-content,
@@ -528,6 +553,9 @@ font-size: 0.9rem;
 }
 }
 
+/* =========================
+Contact Page
+========================= */
 .contact-page .page-content {
 width: min(100%, 900px);
 margin: 0 auto;
@@ -683,6 +711,9 @@ min-width: 0;
 }
 }
 
+/* =========================
+Resume Viewer
+========================= */
 .resume-viewer p {
 color: var(--text-soft);
 margin-bottom: 0.5rem;
@@ -708,6 +739,9 @@ height: 60vh;
 }
 }
 
+/* =========================
+Projects
+========================= */
 .project-header {
 display: flex;
 flex-direction: column;
@@ -744,8 +778,9 @@ margin: 0.9rem 0;
 border-radius: 18px;
 max-width: 100%;
 overflow: hidden;
-border: none;
-background: transparent;
+border: none !important;
+background: transparent !important;
+box-shadow: none;
 }
 
 .project-media img {
@@ -754,6 +789,9 @@ width: 100%;
 height: auto;
 border-radius: 18px;
 object-fit: cover;
+background: transparent !important;
+border: none !important;
+box-shadow: none;
 }
 
 .project-media figcaption {
@@ -908,6 +946,9 @@ margin: 0.6rem 0;
 }
 }
 
+/* =========================
+Footer
+========================= */
 .site-footer {
 flex-shrink: 0;
 margin-top: auto;
@@ -958,6 +999,9 @@ display: none;
 }
 }
 
+/* =========================
+Utility
+========================= */
 .sr-only {
 position: absolute !important;
 width: 1px !important;
