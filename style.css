@@ -37,8 +37,8 @@ padding: 0;
 }
 
 body {
-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
-"Helvetica Neue", Arial, sans-serif;
+font-family: "Roboto Condensed", sans-serif;
+font-weight: 400;
 color: var(--text);
 text-align: center;
 display: flex;
@@ -50,6 +50,20 @@ letter-spacing: -0.01em;
 background: linear-gradient(to bottom, #06070b 0%, #0a0c12 40%, #10141d 100%);
 position: relative;
 overflow-x: hidden;
+}
+
+h1, h2 {
+    font-weight: 700;
+}
+
+h3, h4 {
+    font-weight: 400;
+}
+
+.nav-tabs a,
+.btn,
+.contact-btn {
+    font-weight: 500;
 }
 
 /* =========================
