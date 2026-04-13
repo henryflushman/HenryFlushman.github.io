@@ -1,15 +1,12 @@
-/* =========================
-Root / Base
-========================= */
 :root {
---bg: #0b0b0f;
---bg-elevated: #111218;
---surface: rgba(28, 28, 30, 0.78);
---surface-strong: rgba(36, 36, 40, 0.88);
+--bg: #0b0b10;
+--bg-elevated: #11131b;
+--surface: rgba(25, 27, 36, 0.72);
+--surface-strong: rgba(32, 35, 46, 0.82);
 --surface-soft: rgba(255, 255, 255, 0.04);
---text: #f5f5f7;
---text-soft: #d2d2d7;
---muted: #98989d;
+--text: #f5f7fb;
+--text-soft: #d5d9e3;
+--muted: #98a0b3;
 --accent: #0a84ff;
 --accent-dark: #409cff;
 --border: rgba(255, 255, 255, 0.08);
@@ -42,10 +39,6 @@ padding: 0;
 body {
 font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
 "Helvetica Neue", Arial, sans-serif;
-background:
-radial-gradient(circle at top center, rgba(10, 132, 255, 0.12), transparent 30%),
-radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.035), transparent 20%),
-linear-gradient(to bottom, #0a0a0d, var(--bg));
 color: var(--text);
 text-align: center;
 display: flex;
@@ -54,6 +47,89 @@ min-height: 100vh;
 padding: 5rem 1.5rem 0;
 line-height: 1.65;
 letter-spacing: -0.01em;
+background: linear-gradient(to bottom, #06070b 0%, #0a0c12 40%, #10141d 100%);
+position: relative;
+overflow-x: hidden;
+}
+
+.bg-animation {
+position: fixed;
+inset: 0;
+z-index: -3;
+pointer-events: none;
+background:
+radial-gradient(circle at 18% 20%, rgba(112, 56, 255, 0.16), transparent 24%),
+radial-gradient(circle at 82% 14%, rgba(10, 132, 255, 0.18), transparent 26%),
+radial-gradient(circle at 52% 82%, rgba(25, 211, 255, 0.08), transparent 28%),
+radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.04), transparent 18%);
+animation: driftGlow 18s ease-in-out infinite alternate;
+filter: blur(8px);
+}
+
+.stars,
+.stars-2 {
+position: fixed;
+inset: 0;
+z-index: -2;
+pointer-events: none;
+background-repeat: repeat;
+opacity: 0.55;
+}
+
+.stars {
+background-image:
+radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.95), transparent 55%),
+radial-gradient(1.5px 1.5px at 130px 80px, rgba(255,255,255,0.8), transparent 55%),
+radial-gradient(1.5px 1.5px at 260px 150px, rgba(255,255,255,0.7), transparent 55%),
+radial-gradient(2px 2px at 340px 40px, rgba(255,255,255,0.9), transparent 55%),
+radial-gradient(1.5px 1.5px at 470px 120px, rgba(255,255,255,0.75), transparent 55%),
+radial-gradient(2px 2px at 620px 60px, rgba(255,255,255,0.85), transparent 55%),
+radial-gradient(1.5px 1.5px at 760px 180px, rgba(255,255,255,0.8), transparent 55%),
+radial-gradient(2px 2px at 920px 100px, rgba(255,255,255,0.9), transparent 55%),
+radial-gradient(1.5px 1.5px at 1080px 30px, rgba(255,255,255,0.75), transparent 55%);
+background-size: 1200px 260px;
+animation: driftStars 80s linear infinite;
+}
+
+.stars-2 {
+background-image:
+radial-gradient(1px 1px at 60px 110px, rgba(255,255,255,0.7), transparent 55%),
+radial-gradient(1px 1px at 210px 35px, rgba(255,255,255,0.65), transparent 55%),
+radial-gradient(1px 1px at 390px 190px, rgba(255,255,255,0.6), transparent 55%),
+radial-gradient(1px 1px at 560px 90px, rgba(255,255,255,0.75), transparent 55%),
+radial-gradient(1px 1px at 710px 25px, rgba(255,255,255,0.65), transparent 55%),
+radial-gradient(1px 1px at 870px 170px, rgba(255,255,255,0.6), transparent 55%),
+radial-gradient(1px 1px at 1030px 75px, rgba(255,255,255,0.7), transparent 55%);
+background-size: 1100px 240px;
+opacity: 0.35;
+animation: twinkle 7s ease-in-out infinite alternate, driftStars 120s linear infinite reverse;
+}
+
+@keyframes driftGlow {
+0% {
+transform: translate3d(0, 0, 0) scale(1);
+}
+100% {
+transform: translate3d(-1.5%, 1%, 0) scale(1.04);
+}
+}
+
+@keyframes driftStars {
+from {
+transform: translateY(0);
+}
+to {
+transform: translateY(260px);
+}
+}
+
+@keyframes twinkle {
+0% {
+opacity: 0.2;
+}
+100% {
+opacity: 0.45;
+}
 }
 
 img {
@@ -86,19 +162,16 @@ margin-top: 0;
 color: var(--text-soft);
 }
 
-/* Main content helpers */
 .site-main,
 .presentation,
 .page-content {
 flex: 1 0 auto;
 }
 
-/* =========================
-Navigation
-========================= */
 nav {
 position: relative;
 width: 100%;
+z-index: 20;
 }
 
 .nav-tabs {
@@ -111,7 +184,7 @@ padding: 0.65rem;
 margin: 0 auto 2.5rem auto;
 width: fit-content;
 max-width: calc(100vw - 3rem);
-background: rgba(22, 22, 24, 0.72);
+background: rgba(17, 20, 29, 0.72);
 border: 1px solid var(--border);
 border-radius: 999px;
 box-shadow: var(--shadow-soft);
@@ -156,7 +229,6 @@ color: #ffffff;
 box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
-/* Hamburger */
 .nav-toggle {
 display: none;
 position: fixed;
@@ -164,7 +236,7 @@ top: 1rem;
 left: 1rem;
 width: 2.85rem;
 height: 2.85rem;
-background: rgba(24, 24, 27, 0.86);
+background: rgba(17, 20, 29, 0.86);
 border: 1px solid var(--border);
 border-radius: 14px;
 box-shadow: var(--shadow-soft);
@@ -186,7 +258,6 @@ background: var(--text);
 border-radius: 999px;
 }
 
-/* Mobile nav */
 @media (max-width: 700px) {
 html,
 body {
@@ -235,9 +306,6 @@ padding: 0.95rem 1rem;
 }
 }
 
-/* =========================
-Homepage / Presentation
-========================= */
 .presentation {
 width: min(100%, var(--max-width));
 margin: 1rem auto 2rem auto;
@@ -247,6 +315,8 @@ align-items: center;
 justify-content: space-between;
 gap: 2.5rem;
 text-align: left;
+position: relative;
+z-index: 5;
 }
 
 .intro-text {
@@ -272,7 +342,7 @@ margin-bottom: 0.6rem;
 font-size: clamp(1.1rem, 2vw, 1.55rem);
 font-weight: 500;
 color: var(--muted);
-margin-bottom: 1.2rem;
+margin-bottom: 0.35rem;
 }
 
 .intro-text p {
@@ -307,8 +377,8 @@ height: auto;
 object-fit: cover;
 border-radius: 28px;
 box-shadow: var(--shadow);
-border: 1px solid var(--border);
-background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+border: none;
+background: transparent;
 }
 
 .presentation .profile-image {
@@ -336,9 +406,6 @@ border-radius: 22px;
 }
 }
 
-/* =========================
-Shared Card Layout
-========================= */
 .about-section,
 .contact-form-section,
 .contact-info-section,
@@ -354,9 +421,6 @@ backdrop-filter: blur(26px);
 -webkit-backdrop-filter: blur(26px);
 }
 
-/* =========================
-About
-========================= */
 .about-section {
 width: min(100%, 820px);
 margin: 2rem auto;
@@ -369,9 +433,6 @@ font-size: 1.8rem;
 margin-bottom: 0.9rem;
 }
 
-/* =========================
-Experience / Education
-========================= */
 .experience-list,
 .education-list {
 width: min(100%, 1000px);
@@ -397,10 +458,10 @@ width: 90px;
 height: 90px;
 flex: 0 0 90px;
 object-fit: contain;
-background: rgba(255, 255, 255, 0.035);
-border: 1px solid var(--border);
-border-radius: 18px;
-padding: 10px;
+background: transparent;
+border: none;
+border-radius: 0;
+padding: 0;
 }
 
 .experience-content,
@@ -453,7 +514,6 @@ padding: 1rem;
 width: 64px;
 height: 64px;
 flex: 0 0 64px;
-border-radius: 12px;
 }
 
 .experience-content .role,
@@ -468,9 +528,6 @@ font-size: 0.9rem;
 }
 }
 
-/* =========================
-Contact Page
-========================= */
 .contact-page .page-content {
 width: min(100%, 900px);
 margin: 0 auto;
@@ -626,9 +683,6 @@ min-width: 0;
 }
 }
 
-/* =========================
-Resume Viewer
-========================= */
 .resume-viewer p {
 color: var(--text-soft);
 margin-bottom: 0.5rem;
@@ -654,9 +708,6 @@ height: 60vh;
 }
 }
 
-/* =========================
-Projects
-========================= */
 .project-header {
 display: flex;
 flex-direction: column;
@@ -693,7 +744,8 @@ margin: 0.9rem 0;
 border-radius: 18px;
 max-width: 100%;
 overflow: hidden;
-border: 1px solid var(--border);
+border: none;
+background: transparent;
 }
 
 .project-media img {
@@ -856,15 +908,12 @@ margin: 0.6rem 0;
 }
 }
 
-/* =========================
-Footer
-========================= */
 .site-footer {
 flex-shrink: 0;
 margin-top: auto;
 background:
-linear-gradient(to top, rgba(0,0,0,0.42), rgba(0,0,0,0.2)),
-rgba(10, 10, 12, 0.95);
+linear-gradient(to top, rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.2)),
+rgba(10, 10, 12, 0.9);
 color: #dcdce1;
 padding: 2rem 1rem 1.5rem;
 text-align: center;
@@ -877,6 +926,7 @@ border-radius: 0;
 border-top: 1px solid rgba(255, 255, 255, 0.06);
 backdrop-filter: blur(18px);
 -webkit-backdrop-filter: blur(18px);
+z-index: 5;
 }
 
 .site-footer p {
@@ -908,9 +958,6 @@ display: none;
 }
 }
 
-/* =========================
-Utility
-========================= */
 .sr-only {
 position: absolute !important;
 width: 1px !important;
