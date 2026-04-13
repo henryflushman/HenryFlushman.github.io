@@ -104,6 +104,10 @@
 
 </head>
 <body>
+  <div class="bg-animation" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="stars stars-2" aria-hidden="true"></div>
+
   <nav>
     <div class="nav-toggle" id="navToggle" aria-label="Open navigation" tabindex="0">
       <span></span>
@@ -113,7 +117,7 @@
     <ul class="nav-tabs" id="navTabs">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="projects.html" aria-current="page">Projects</a></li>
+      <li><a href="projects.html">Projects</a></li>
       <li><a href="education.html">Education</a></li>
       <li><a href="experience.html">Experience</a></li>
       <li><a href="resume.html">Resume</a></li>
@@ -149,6 +153,16 @@
         }
       });
     });
+
+    const currentPage = window.location.pathname.split('/').pop() || 'projects.html';
+    document.querySelectorAll('.nav-tabs a').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPage) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
   </script>
 
   <article class="project" role="article" aria-labelledby="project-title-mars-viewer" data-project-id="mars-viewer" itemscope itemtype="https://schema.org/CreativeWork">
@@ -164,7 +178,7 @@
       </p>
     </header>
 
-```
+
 <section class="project-details">
   <h3 class="sr-only">Project details</h3>
 
@@ -228,7 +242,7 @@
 <footer class="project-footer" aria-hidden="false">
   <p class="project-stats">Duration: Ongoing • Team: 1 • Status: Active</p>
 </footer>
-```
+
 
   </article>
 
@@ -245,7 +259,7 @@
       </p>
     </header>
 
-```
+
 <figure class="project-media">
   <img src="./assets/pictures/portfolio.png" alt="Orbital rendezvous mission design project image" itemprop="image">
   <figcaption>Mission design workflow for debris rendezvous analysis.</figcaption>
@@ -292,7 +306,7 @@
 <footer class="project-footer" aria-hidden="false">
   <p class="project-stats">Duration: 1 quarter • Team: 1 • Status: Completed</p>
 </footer>
-```
+
 
   </article>
 
@@ -309,7 +323,7 @@
       </p>
     </header>
 
-```
+
 <figure class="project-media">
   <img src="./assets/pictures/portfolio.png" alt="Mission control development project image" itemprop="image">
   <figcaption>Backend and data-handling work for mission control applications.</figcaption>
@@ -359,7 +373,7 @@
 <footer class="project-footer" aria-hidden="false">
   <p class="project-stats">Duration: Ongoing • Team: Collaborative • Status: Active</p>
 </footer>
-```
+
 
   </article>
 
@@ -376,7 +390,7 @@
       </p>
     </header>
 
-```
+
 <figure class="project-media">
   <img src="./assets/pictures/portfolio.png" alt="Spacecraft simulation repository project image" itemprop="image">
   <figcaption>Simulation repository structure and development workflow.</figcaption>
@@ -428,7 +442,7 @@
 <footer class="project-footer" aria-hidden="false">
   <p class="project-stats">Duration: Ongoing • Team: Collaborative • Status: Active</p>
 </footer>
-```
+
 
   </article>
 

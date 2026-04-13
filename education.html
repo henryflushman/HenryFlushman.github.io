@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,6 +7,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="bg-animation" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="stars stars-2" aria-hidden="true"></div>
+
   <nav>
     <div class="nav-toggle" id="navToggle" aria-label="Open navigation" tabindex="0">
       <span></span>
@@ -39,69 +42,81 @@
     navToggle.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         navTabs.classList.toggle('open');
+        if (window.innerWidth <= 700) {
+          document.body.classList.toggle('menu-open', navTabs.classList.contains('open'));
+        }
       }
     });
 
     navTabs.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        if (window.innerWidth <= 700) navTabs.classList.remove('open');
+        if (window.innerWidth <= 700) {
+          navTabs.classList.remove('open');
+          document.body.classList.remove('menu-open');
+        }
       });
+    });
+
+    const currentPage = window.location.pathname.split('/').pop() || 'education.html';
+    document.querySelectorAll('.nav-tabs a').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPage) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
     });
   </script>
 
   <section class="education-list" aria-label="Education background">
+    <article class="education-item">
+      <img class="edu-logo" src="assets/logos/CP_logo_alt_cmyk.svg" alt="Cal Poly logo">
 
-```
-<article class="education-item">
-  <img class="edu-logo" src="assets/logos/CP_logo_alt_cmyk.svg" alt="Cal Poly logo">
+      <div class="education-content">
+        <h3 class="degree">Bachelor of Science in Aerospace Engineering</h3>
+        <div class="meta">
+          <strong>California Polytechnic State University, San Luis Obispo</strong>
+          &middot; Expected Graduation: April 2026
+        </div>
 
-  <div class="education-content">
-    <h3 class="degree">Bachelor of Science in Aerospace Engineering</h3>
-    <div class="meta">
-      <strong>California Polytechnic State University, San Luis Obispo</strong>
-      &middot; Expected Graduation: April 2026
-    </div>
+        <p>
+          I am pursuing a B.S. in Aerospace Engineering at Cal Poly, where my coursework and
+          project experience have focused on spacecraft systems, orbital mechanics, aerospace
+          dynamics, controls, and computational engineering. My academic work has been shaped
+          by Cal Poly’s hands-on approach, with an emphasis on applying theory through design,
+          simulation, and analysis.
+        </p>
 
-    <p>
-      I am pursuing a B.S. in Aerospace Engineering at Cal Poly, where my coursework and
-      project experience have focused on spacecraft systems, orbital mechanics, aerospace
-      dynamics, controls, and computational engineering. My academic work has been shaped
-      by Cal Poly’s hands-on approach, with an emphasis on applying theory through design,
-      simulation, and analysis.
-    </p>
+        <ul>
+          <li><strong>GPA:</strong> 3.507</li>
+          <li><strong>Class Level:</strong> Junior</li>
+          <li><strong>Focus Areas:</strong> Spacecraft dynamics and controls, orbital mechanics, mission design, and aerospace software development</li>
+        </ul>
 
-    <ul>
-      <li><strong>GPA:</strong> 3.507</li>
-      <li><strong>Class Level:</strong> Junior</li>
-      <li><strong>Focus Areas:</strong> Spacecraft dynamics and controls, orbital mechanics, mission design, and aerospace software development</li>
-    </ul>
+        <h4>Relevant Coursework</h4>
+        <ul>
+          <li>Attitude Dynamics and Controls</li>
+          <li>Space Environments I and II</li>
+          <li>Introduction to Orbital Mechanics</li>
+          <li>Aerospace Dynamics</li>
+          <li>Aerospace Structural Analysis</li>
+          <li>Aerospace Engineering Analysis</li>
+          <li>Aerospace Gas Dynamics</li>
+          <li>Aerospace Fluid Mechanics</li>
+          <li>Electric Circuit Theory</li>
+          <li>Materials Engineering</li>
+          <li>Engineering Statistics</li>
+        </ul>
 
-    <h4>Relevant Coursework</h4>
-    <ul>
-      <li>Attitude Dynamics and Controls</li>
-      <li>Space Environments I and II</li>
-      <li>Introduction to Orbital Mechanics</li>
-      <li>Aerospace Dynamics</li>
-      <li>Aerospace Structural Analysis</li>
-      <li>Aerospace Engineering Analysis</li>
-      <li>Aerospace Gas Dynamics</li>
-      <li>Aerospace Fluid Mechanics</li>
-      <li>Electric Circuit Theory</li>
-      <li>Materials Engineering</li>
-      <li>Engineering Statistics</li>
-    </ul>
-
-    <h4>Academic Highlights</h4>
-    <ul>
-      <li><strong>Orbital Mechanics:</strong> Designed a rendezvous mission with space debris, including delta-V calculations, Lambert-based transfer analysis, and porkchop plot generation</li>
-      <li><strong>Controls and Simulation:</strong> Developed and contributed to spacecraft simulation work tied to mission phases and dynamics</li>
-      <li><strong>Space Environments:</strong> Gained exposure to vacuum chamber operations, outgassing, and environmental considerations relevant to spacecraft design</li>
-      <li><strong>Software and Analysis:</strong> Applied Python, MATLAB, Git, and object-oriented programming to engineering analysis and aerospace data workflows</li>
-    </ul>
-  </div>
-</article>
-```
-
+        <h4>Academic Highlights</h4>
+        <ul>
+          <li><strong>Orbital Mechanics:</strong> Designed a rendezvous mission with space debris, including delta-V calculations, Lambert-based transfer analysis, and porkchop plot generation</li>
+          <li><strong>Controls and Simulation:</strong> Developed and contributed to spacecraft simulation work tied to mission phases and dynamics</li>
+          <li><strong>Space Environments:</strong> Gained exposure to vacuum chamber operations, outgassing, and environmental considerations relevant to spacecraft design</li>
+          <li><strong>Software and Analysis:</strong> Applied Python, MATLAB, Git, and object-oriented programming to engineering analysis and aerospace data workflows</li>
+        </ul>
+      </div>
+    </article>
   </section>
 
   <footer class="site-footer">

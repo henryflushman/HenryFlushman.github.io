@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,6 +7,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="bg-animation" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="stars stars-2" aria-hidden="true"></div>
+
   <nav>
     <div class="nav-toggle" id="navToggle" aria-label="Open navigation" tabindex="0">
       <span></span>
@@ -44,127 +47,118 @@
         }
       }
     });
+
+    navTabs.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 700) {
+          navTabs.classList.remove('open');
+          document.body.classList.remove('menu-open');
+        }
+      });
+    });
+
+    const currentPage = window.location.pathname.split('/').pop() || 'experience.html';
+    document.querySelectorAll('.nav-tabs a').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPage) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
   </script>
 
   <section class="experience-list" aria-label="Experience list">
+    <article class="experience-item">
+      <img class="company-logo" src="assets/logos/CP_logo_alt_cmyk.svg" alt="Cal Poly logo">
+      <div class="experience-content">
+        <h3 class="role">Mission Control Software Developer</h3>
+        <div class="meta"><strong>PolySpace Club, California Polytechnic State University</strong> &middot; Fall 2025 - Present</div>
+        <p>Collaborative development of mission control software intended to support ground station responsibilities for the Cal Poly campus.</p>
+        <ul>
+          <li>Contribute to the development of a mission control center for campus ground station operations</li>
+          <li>Design backend software structures using object-oriented programming in Python</li>
+          <li>Built a Python object constructor for SATCAT data accessed through the Space-Track API</li>
+          <li>Support data analysis operations involving in-orbit objects</li>
+          <li>Use HTML and JavaScript for satellite and stellar body visualization</li>
+          <li>Manage work within a larger shared repository using Git and GitHub</li>
+        </ul>
+      </div>
+    </article>
 
-```
-<article class="experience-item">
-  <img
-    class="company-logo"
-    src="assets/logos/CP_logo_alt_cmyk.svg"
-    alt="Cal Poly logo"
-  >
-  <div class="experience-content">
-    <h3 class="role">Mission Control Software Developer</h3>
-    <div class="meta"><strong>PolySpace Club, California Polytechnic State University</strong> &middot; Fall 2025 - Present</div>
-    <p>Collaborative development of mission control software intended to support ground station responsibilities for the Cal Poly campus.</p>
-    <ul>
-      <li>Contribute to the development of a mission control center for campus ground station operations</li>
-      <li>Design backend software structures using object-oriented programming in Python</li>
-      <li>Built a Python object constructor for SATCAT data accessed through the Space-Track API</li>
-      <li>Support data analysis operations involving in-orbit objects</li>
-      <li>Use HTML and JavaScript for satellite and stellar body visualization</li>
-      <li>Manage work within a larger shared repository using Git and GitHub</li>
-    </ul>
-  </div>
-</article>
+    <article class="experience-item">
+      <img class="company-logo" src="assets/logos/CP_logo_alt_cmyk.svg" alt="Cal Poly logo">
+      <div class="experience-content">
+        <h3 class="role">Spacecraft Simulation Repository Development</h3>
+        <div class="meta"><strong>Attitude Dynamics and Controls, Cal Poly</strong> &middot; Spring 2026 - Present</div>
+        <p>Development and management of a shared repository designed to model and simulate multiple stages of a spacecraft mission.</p>
+        <ul>
+          <li>Developed and currently manage a Git repository for spacecraft mission simulation work</li>
+          <li>Structured the repository to support modeling and simulation across mission stages</li>
+          <li>Designed a shell script to install and automatically activate a shared Conda environment</li>
+          <li>Improved usability and consistency for collaborators working in the repository</li>
+        </ul>
+      </div>
+    </article>
 
-<article class="experience-item">
-  <img
-    class="company-logo"
-    src="assets/logos/CP_logo_alt_cmyk.svg"
-    alt="Cal Poly logo"
-  >
-  <div class="experience-content">
-    <h3 class="role">Spacecraft Simulation Repository Development</h3>
-    <div class="meta"><strong>Attitude Dynamics and Controls, Cal Poly</strong> &middot; Spring 2026 - Present</div>
-    <p>Development and management of a shared repository designed to model and simulate multiple stages of a spacecraft mission.</p>
-    <ul>
-      <li>Developed and currently manage a Git repository for spacecraft mission simulation work</li>
-      <li>Structured the repository to support modeling and simulation across mission stages</li>
-      <li>Designed a shell script to install and automatically activate a shared Conda environment</li>
-      <li>Improved usability and consistency for collaborators working in the repository</li>
-    </ul>
-  </div>
-</article>
+    <article class="experience-item">
+      <img class="company-logo" src="assets/logos/CP_logo_alt_cmyk.svg" alt="Cal Poly logo">
+      <div class="experience-content">
+        <h3 class="role">Orbital Mechanics Mission Design Project</h3>
+        <div class="meta"><strong>Introduction to Orbital Mechanics, Cal Poly</strong> &middot; Fall 2025</div>
+        <p>Computational mission design project focused on rendezvous with space debris.</p>
+        <ul>
+          <li>Designed an orbital mechanics mission to rendezvous with a space debris target</li>
+          <li>Calculated delta-V requirements and maneuver timing for transfer analysis</li>
+          <li>Generated a porkchop plot to optimize departure and arrival timing</li>
+          <li>Applied Lambert-based maneuver analysis to evaluate mission opportunities</li>
+        </ul>
+      </div>
+    </article>
 
-<article class="experience-item">
-  <img
-    class="company-logo"
-    src="assets/logos/CP_logo_alt_cmyk.svg"
-    alt="Cal Poly logo"
-  >
-  <div class="experience-content">
-    <h3 class="role">Orbital Mechanics Mission Design Project</h3>
-    <div class="meta"><strong>Introduction to Orbital Mechanics, Cal Poly</strong> &middot; Fall 2025</div>
-    <p>Computational mission design project focused on rendezvous with space debris.</p>
-    <ul>
-      <li>Designed an orbital mechanics mission to rendezvous with a space debris target</li>
-      <li>Calculated delta-V requirements and maneuver timing for transfer analysis</li>
-      <li>Generated a porkchop plot to optimize departure and arrival timing</li>
-      <li>Applied Lambert-based maneuver analysis to evaluate mission opportunities</li>
-    </ul>
-  </div>
-</article>
+    <article class="experience-item">
+      <img class="company-logo" src="assets/logos/CP_logo_alt_cmyk.svg" alt="Cal Poly logo">
+      <div class="experience-content">
+        <h3 class="role">Space Environments Laboratory Experience</h3>
+        <div class="meta"><strong>Space Environments Course, Cal Poly</strong> &middot; Winter 2025 - Present</div>
+        <p>Coursework and laboratory exposure focused on spacecraft environmental considerations and vacuum operations.</p>
+        <ul>
+          <li>Learning vacuum chamber operations and related testing considerations</li>
+          <li>Studying outgassing and other spacecraft design concerns in neutral environments</li>
+          <li>Developing familiarity with environmental constraints relevant to space systems</li>
+        </ul>
+      </div>
+    </article>
 
-<article class="experience-item">
-  <img
-    class="company-logo"
-    src="assets/logos/CP_logo_alt_cmyk.svg"
-    alt="Cal Poly logo"
-  >
-  <div class="experience-content">
-    <h3 class="role">Space Environments Laboratory Experience</h3>
-    <div class="meta"><strong>Space Environments Course, Cal Poly</strong> &middot; Winter 2025 - Present</div>
-    <p>Coursework and laboratory exposure focused on spacecraft environmental considerations and vacuum operations.</p>
-    <ul>
-      <li>Learning vacuum chamber operations and related testing considerations</li>
-      <li>Studying outgassing and other spacecraft design concerns in neutral environments</li>
-      <li>Developing familiarity with environmental constraints relevant to space systems</li>
-    </ul>
-  </div>
-</article>
+    <article class="experience-item">
+      <img class="company-logo" src="assets/logos/CP_logo_alt_cmyk.svg" alt="Cal Poly logo">
+      <div class="experience-content">
+        <h3 class="role">Propulsion Design and Manufacturing Member</h3>
+        <div class="meta"><strong>SLO Propulsions Technologies, Cal Poly</strong> &middot; Fall 2024 - Spring 2025</div>
+        <p>Design and manufacturing work supporting liquid rocket engine hardware development.</p>
+        <ul>
+          <li>Designed and developed a turbo-pump for a liquid engine rocket using Fusion 360</li>
+          <li>Manufactured combustion chamber components for a gas generator system</li>
+          <li>Contributed to injector plate and propulsion hardware fabrication</li>
+          <li>Gained hands-on experience with design iteration and manufacturing processes</li>
+        </ul>
+      </div>
+    </article>
 
-<article class="experience-item">
-  <img
-    class="company-logo"
-    src="assets/logos/CP_logo_alt_cmyk.svg"
-    alt="Cal Poly logo"
-  >
-  <div class="experience-content">
-    <h3 class="role">Propulsion Design and Manufacturing Member</h3>
-    <div class="meta"><strong>SLO Propulsions Technologies, Cal Poly</strong> &middot; Fall 2024 - Spring 2025</div>
-    <p>Design and manufacturing work supporting liquid rocket engine hardware development.</p>
-    <ul>
-      <li>Designed and developed a turbo-pump for a liquid engine rocket using Fusion 360</li>
-      <li>Manufactured combustion chamber components for a gas generator system</li>
-      <li>Contributed to injector plate and propulsion hardware fabrication</li>
-      <li>Gained hands-on experience with design iteration and manufacturing processes</li>
-    </ul>
-  </div>
-</article>
-
-<article class="experience-item">
-  <img
-    class="company-logo"
-    src="assets/logos/Seal_of_San_Luis_Obispo,_California.png"
-    alt="City of San Luis Obispo logo"
-  >
-  <div class="experience-content">
-    <h3 class="role">Cashier</h3>
-    <div class="meta"><strong>City of San Luis Obispo</strong> &middot; Winter 2022 - Present</div>
-    <p>Customer-facing work that has strengthened communication, teamwork, and time management skills.</p>
-    <ul>
-      <li>Demonstrate strong communication and customer service in daily operations</li>
-      <li>Work effectively in a fast-paced public-facing environment</li>
-      <li>Handle customer concerns professionally and respectfully</li>
-      <li>Built reliability, teamwork, and conflict resolution skills through consistent service work</li>
-    </ul>
-  </div>
-</article>
-```
-
+    <article class="experience-item">
+      <img class="company-logo" src="assets/logos/Seal_of_San_Luis_Obispo,_California.png" alt="City of San Luis Obispo logo">
+      <div class="experience-content">
+        <h3 class="role">Cashier</h3>
+        <div class="meta"><strong>City of San Luis Obispo</strong> &middot; Winter 2022 - Present</div>
+        <p>Customer-facing work that has strengthened communication, teamwork, and time management skills.</p>
+        <ul>
+          <li>Demonstrate strong communication and customer service in daily operations</li>
+          <li>Work effectively in a fast-paced public-facing environment</li>
+          <li>Handle customer concerns professionally and respectfully</li>
+          <li>Built reliability, teamwork, and conflict resolution skills through consistent service work</li>
+        </ul>
+      </div>
+    </article>
   </section>
 
   <footer class="site-footer">
