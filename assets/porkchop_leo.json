@@ -1,0 +1,42 @@
+{
+  "title": "LEO Rendezvous Trade Study",
+  "output_png": "assets/porkchop_leo.png",
+  "mu": 398600,
+  "prograde": true,
+  "t1_max_sec": 86400.0,
+  "t2_max_sec": 86400.0,
+  "t_step_sec": 600.0,
+  "tof_min_hr": 1.5,
+  "tof_max_hr": 10.0,
+  "best_solution": {
+    "departure_time_sec": 64200.0,
+    "tof_sec": 5400.0,
+    "departure_time_hr": 17.833333333333332,
+    "tof_hr": 1.5,
+    "delta_v_kms": 2.156610189026667,
+    "dv_depart_kms": 1.157788181479934,
+    "dv_arrive_kms": 0.998822007546733,
+    "rp_km": 6976.675589805834,
+    "orbit_type": "Elliptical",
+    "r_depart_km": [
+      6226.728598640756,
+      -3229.1459397336957,
+      -424.62257425150005
+    ],
+    "r_arrive_km": [
+      -8788.212825009488,
+      -4405.373090205792,
+      316.74457948816394
+    ],
+    "v_depart_transfer_kms": [
+      3.426501253452378,
+      7.454611030225962,
+      0.057359711309787016
+    ],
+    "v_arrive_transfer_kms": [
+      3.325968643470651,
+      -4.8736165584234,
+      -0.32607490671497313
+    ]
+  }
+}
