@@ -93,12 +93,13 @@ background-repeat: repeat;
 }
 
 .stars {
-opacity: 0.55;
+opacity: 0.75;
+filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
 background-image:
-radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.95), transparent 55%),
+radial-gradient(2px 2.4px at 20px 30px, rgba(255,255,255,1.0), transparent 55%),
 radial-gradient(1.5px 1.5px at 130px 80px, rgba(255,255,255,0.8), transparent 55%),
-radial-gradient(1.5px 1.5px at 260px 150px, rgba(255,255,255,0.7), transparent 55%),
-radial-gradient(2px 2px at 340px 40px, rgba(255,255,255,0.9), transparent 55%),
+radial-gradient(1.5px 2px at 260px 150px, rgba(255,255,255,0.7), transparent 55%),
+radial-gradient(2px 2.4px at 340px 40px, rgba(255,255,255,0.9), transparent 55%),
 radial-gradient(1.5px 1.5px at 470px 120px, rgba(255,255,255,0.75), transparent 55%),
 radial-gradient(2px 2px at 620px 60px, rgba(255,255,255,0.85), transparent 55%),
 radial-gradient(1.5px 1.5px at 760px 180px, rgba(255,255,255,0.8), transparent 55%),
@@ -109,12 +110,13 @@ animation: driftStars 80s linear infinite;
 }
 
 .stars-2 {
-opacity: 0.35;
+opacity: 0.55;
+filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.5));
 background-image:
-radial-gradient(1px 1px at 60px 110px, rgba(255,255,255,0.7), transparent 55%),
-radial-gradient(1px 1px at 210px 35px, rgba(255,255,255,0.65), transparent 55%),
+radial-gradient(1px 1.5px at 60px 110px, rgba(255,255,255,0.7), transparent 55%),
+radial-gradient(1.5px 1px at 210px 35px, rgba(255,255,255,0.65), transparent 55%),
 radial-gradient(1px 1px at 390px 190px, rgba(255,255,255,0.6), transparent 55%),
-radial-gradient(1px 1px at 560px 90px, rgba(255,255,255,0.75), transparent 55%),
+radial-gradient(1.5px 1px at 560px 90px, rgba(255,255,255,0.85), transparent 55%),
 radial-gradient(1px 1px at 710px 25px, rgba(255,255,255,0.65), transparent 55%),
 radial-gradient(1px 1px at 870px 170px, rgba(255,255,255,0.6), transparent 55%),
 radial-gradient(1px 1px at 1030px 75px, rgba(255,255,255,0.7), transparent 55%);
